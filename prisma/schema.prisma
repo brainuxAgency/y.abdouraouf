@@ -1,0 +1,183 @@
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  String             @id @default(cuid())
+  email               String             @unique
+  password            String?
+  name                String?
+
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime?          @updatedAt
+  image               String?
+  emailVerified       Boolean            @default(false)
+  banExpires          Int?
+  banReason           String?
+  banned              Boolean            @default(false)
+  role                String             @default("user")
+  lastEmailSent       String?
+  accounts            Account[]
+  marketingEmails     MarketingEmail[]
+  payments            Payment[]
+  sessions            Session[]
+  tags                Tag[]              @relation("UserTags")
+
+  @@map("user")
+}
+
+
+model MarketingEmail {
+  id        String               @id @default(cuid())
+  title     String
+  content   String
+  status    StatusEmailMarketing @default(ENVOYER)
+  createdAt DateTime             @default(now())
+  userId    String
+  user      User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@map("marketing_email")
+}
+
+enum StatusEmailMarketing {
+  ENVOYER
+  ENVOIE_EN_COURS
+  NON_ENVOYE
+}
+
+model Account {
+  id                    String    @id @default(cuid()) @map("_id")
+  userId                String
+  accountId             String
+  providerId            String
+  accessToken           String?
+  refreshToken          String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+model Promo {
+  id        String   @id @default(cuid())
+  code      String   @unique
+  discount  Float
+  isPercent Boolean  @default(false)
+  validFrom DateTime @default(now())
+  validTo   DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  status    Boolean  @default(true)
+}
+model Payment {
+  id               String               @id @default(cuid())
+  userId           String
+  productName      String
+  amount           Float
+  paypalOrderId    String?
+  source           String?
+  status           String
+  createdAt        DateTime             @default(now())
+  sellerId         String?
+  commandeStatus   StatusEnvoieCommande @default(EN_ATTENTE)
+  user             User                 @relation(fields: [userId], references: [id])
+}
+
+enum StatusEnvoieCommande {
+  EN_ATTENTE
+  EN_COURS
+  TERMINE
+}
+
+model Message {
+  id            String    @id @default(cuid())
+  fullName      String
+  email         String
+  phone         String
+  isCompany     Boolean   @default(false)
+  companyName   String?
+  companyWebsite String?
+  projectType   String
+  budget        String
+  message       String    @db.Text
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  status        MessageStatus @default(UNREAD)
+}
+
+enum MessageStatus {
+  UNREAD
+  READ
+  ARCHIVED
+}
+
+model Tag {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  users     User[]   @relation("UserTags")
+}
+
+model Newsletter {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+
+
+model Visit {
+  id        String   @id @default(cuid())
+  page      String
+  timestamp DateTime @default(now())
+  ip        String?
+  country   String?
+  city      String?
+  visitorId String
+  count     Int      @default(1)
+  visitor   Visitor  @relation(fields: [visitorId], references: [id])
+}
+
+model Visitor {
+  id         String   @id @default(cuid())
+  firstVisit DateTime @default(now())
+  lastVisit  DateTime @default(now())
+  visitCount Int      @default(1)
+  visits     Visit[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime
+  updatedAt DateTime
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("session")
+}
+
+model Verification {
+  id         String    @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
+}
