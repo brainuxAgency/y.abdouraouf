@@ -46,7 +46,7 @@ export function Hero() {
                 className="inline-block mb-6"
               >
                 <span className="px-4 py-2 rounded-full text-sm bg-purple-500/10 text-purple-400 border border-purple-500/20 inline-block">
-                  Développeur Full Stack React-Native & Next.js
+                  Full Stack Developer — React.js · Next.js · Node.js
                 </span>
               </motion.div>
 
