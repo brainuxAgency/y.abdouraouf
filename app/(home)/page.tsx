@@ -1,6 +1,5 @@
 import ContactForm from "@/components/home/contact-form";
 import { Hero } from "@/components/home/Hero";
-import { MyWork } from "@/components/home/MyWork";
 import {SexyProjects} from "@/components/home/SexyProjects";
 import { TechStack } from "@/components/home/TechStack";
 import { ValueProposition } from "@/components/home/ValueProposition";
@@ -12,11 +11,10 @@ export default function Home() {
       <Hero />
       <Services />
       <TechStack />
-      <MyWork />
+      {/* <MyWork /> */}
       <ValueProposition />
       <SexyProjects />
       <ContactForm />
-    
     </>
   );
 }

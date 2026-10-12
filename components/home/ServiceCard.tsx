@@ -1,86 +1,94 @@
-"use client"
-import { Service } from "@/src/constants/services"
-import { motion } from "framer-motion"
+"use client";
+
+import { Service } from "@/src/constants/services";
+import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
 
 interface ServiceCardProps {
-  service: Service
-  index: number
+  service: Service;
+  index: number;
 }
 
 export function ServiceCard({ service, index }: ServiceCardProps) {
+  const Icon = service.icon;
+
   return (
     <motion.div
-      key={service.title}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ delay: index * 0.1 }}
-      whileHover={{ y: -5 }}
-      className="group relative"
+      transition={{ duration: 0.4, delay: index * 0.08 }}
+      className="group relative flex flex-col h-full"
     >
-      <div className={`absolute -inset-0.5 bg-gradient-to-r ${service.color} rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200`} />
-      <div >
-        <div className="relative p-4 md:p-6 bg-gray-900 rounded-lg ring-1 ring-gray-800/50 hover:ring-gray-700/50 transition-all duration-300">
-          <div className="flex items-center gap-4 mb-4">
-            <motion.div 
-              className={`p-3 rounded-lg bg-gradient-to-r ${service.color}`}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <motion.div
-              className="bg-purple-500/20 rounded-full p-3"
-                animate={{ rotate: [0, 10, -10, 0] }}
-                transition={{ 
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
+      {/* Background card with glassmorphism and subtle border */}
+      <div className="relative flex flex-col justify-between h-full rounded-2xl border border-white/10 bg-gray-950/70 backdrop-blur-xl p-6 transition-all duration-300 hover:border-purple-500/40 hover:bg-gray-900/70 hover:shadow-2xl hover:shadow-purple-950/20 overflow-hidden">
+        {/* Subtle top light beam on hover */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+        {/* Ambient radial glow on hover */}
+        <div
+          className="pointer-events-none absolute -top-24 -right-24 w-48 h-48 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          style={{ background: service.glowColor }}
+        />
+
+        <div>
+          {/* Card Top: Icon & Category */}
+          <div className="flex items-center justify-between mb-5">
+            <div className="relative flex items-center justify-center w-11 h-11 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 group-hover:bg-purple-500/20 group-hover:border-purple-500/40 group-hover:text-purple-300 transition-all duration-300 shadow-sm">
+              <Icon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="font-mono text-xs text-gray-500 group-hover:text-purple-400/80 transition-colors">
+                {service.id}
+              </span>
+              <Badge
+                variant="outline"
+                className="text-[10px] font-mono border-white/10 bg-white/[0.03] text-gray-400 group-hover:border-purple-500/30 group-hover:text-gray-300 transition-colors"
               >
-                <service.icon className="w-6 h-6 text-white" />
-              </motion.div>
-            </motion.div>
-            <h3 className="text-xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-purple-400 transition-all duration-300">
-              {service.title}
-            </h3>
+                {service.category}
+              </Badge>
+            </div>
           </div>
-          <motion.p 
-            className="text-gray-300/90 text-sm leading-relaxed relative"
-            initial={{ opacity: 0.9 }}
-            whileHover={{ opacity: 1 }}
-          >
+
+          {/* Title */}
+          <h3 className="text-lg font-bold text-white group-hover:text-purple-300 transition-colors tracking-tight">
+            {service.title}
+          </h3>
+
+          {/* Description */}
+          <p className="mt-2.5 text-xs sm:text-sm text-gray-400 leading-relaxed">
             {service.description}
-          </motion.p>
-          <motion.div 
-            className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            initial={{ x: -10 }}
-            whileHover={{ x: 0 }}
+          </p>
+
+          {/* Tech stack / keywords */}
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            {service.tags.map((tag) => (
+              <Badge
+                key={tag}
+                variant="outline"
+                className="text-[11px] font-mono px-2 py-0.5 rounded-md border-white/10 bg-white/[0.02] text-gray-400 group-hover:text-gray-300 transition-colors"
+              >
+                {tag}
+              </Badge>
+            ))}
+          </div>
+        </div>
+
+        {/* Card Footer: CTA link */}
+        <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
+          <Link
+            href="#contact"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-purple-400 hover:text-purple-300 transition-colors group/link"
           >
-            <svg 
-              className="w-5 h-5 text-purple-400"
-              fill="none" 
-              viewBox="0 0 24 24" 
-              stroke="currentColor"
-            >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M17 8l4 4m0 0l-4 4m4-4H3" 
-              />
-            </svg>
-          </motion.div>
-          <motion.div
-            className="absolute inset-0 pointer-events-none"
-            whileHover={{
-              background: [
-                "radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 50%)",
-                "radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0) 0%, transparent 50%)"
-              ],
-            }}
-            transition={{ duration: 0.3 }}
-          />
+            <span>Concrétiser ce projet</span>
+            <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+          </Link>
+          <span className="w-1.5 h-1.5 rounded-full bg-purple-500/40 group-hover:bg-purple-400 transition-colors" />
         </div>
       </div>
     </motion.div>
-  )
-} 
+  );
+}

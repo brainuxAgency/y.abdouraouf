@@ -1,321 +1,466 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react/no-unescaped-entities */
-"use client"
-import { motion } from "framer-motion"
-import Image from "next/image"
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react"
-import Link from "next/link"
-import { Badge } from "../ui/badge"
-import { FaCode, FaUsers, FaRocket } from "react-icons/fa"
-import { Button } from "../ui/button"
+"use client";
+
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
-import { useState } from "react"
+  ArrowUpRight,
+  ChevronLeft,
+  ChevronRight,
+  Sparkles,
+  CheckCircle2,
+  Globe,
+} from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
-const stats = [
-  {
-    value: "100+",
-    label: "Projets réalisés",
-    description: "Des projets variés et innovants",
-    icon: FaCode,
-    gradient: "from-purple-400 to-pink-600"
-  },
-  {
-    value: "50K+",
-    label: "Utilisateurs satisfaits",
-    description: "Une communauté grandissante",
-    icon: FaUsers,
-    gradient: "from-blue-400 to-purple-600"
-  },
-  {
-    value: "95%",
-    label: "Taux de réussite",
-    description: "Des projets livrés avec succès",
-    icon: FaRocket,
-    gradient: "from-pink-400 to-red-600"
-  }
-]
+interface Project {
+  id: string;
+  title: string;
+  category: "all" | "saas" | "crm" | "showcase" | "mobile";
+  categoryLabel: string;
+  description: string;
+  images: string[];
+  link: string;
+  domain: string;
+  status: string;
+  isFeatured?: boolean;
+  technologies: string[];
+  highlights?: string[];
+}
 
-const projects = [
+const projects: Project[] = [
   {
+    id: "ripostera",
     title: "Ripostera",
-    description: "Plateforme SaaS qui automatise la planification et la diffusion de contenus sur plusieurs réseaux sociaux, avec des outils IA pour convertir les interactions en prospects.",
+    category: "saas",
+    categoryLabel: "SaaS IA & Automatisation",
+    description:
+      "Plateforme SaaS tout-en-un qui automatise la création, la planification intelligente et la multidiffusion de contenus sur les réseaux sociaux. Intègre des agents IA pour transformer l'engagement en prospects qualifiés.",
     images: ["/projects/ripostera.png"],
-    gradient: "from-amber-500 to-rose-600",
     link: "https://ripostera.vercel.app/",
-    technologies: [
-      { name: "Multi-plateforme", color: "bg-zinc-700" },
-      { name: "Planification", color: "bg-blue-700" },
-      { name: "Auto-DM", color: "bg-emerald-700" },
-      { name: "IA", color: "bg-rose-700" },
-    ],
+    domain: "ripostera.vercel.app",
+    status: "En production",
+    isFeatured: true,
+    technologies: ["Next.js 14", "TypeScript", "OpenAI", "Prisma", "PostgreSQL", "Tailwind CSS"],
+    highlights: ["Génération IA", "Multi-comptes", "Auto-DM & Leads", "Paiements Stripe"],
   },
   {
-    title: "Massurer",
-    description: "Site vitrine et demande de devis en ligne pour un courtier d'assurance indépendant qui accompagne particuliers et professionnels.",
-    images: ["/projects/massurer.png"],
-    gradient: "from-sky-600 to-emerald-500",
-    link: "https://massurer.vercel.app/",
-    technologies: [
-      { name: "Santé", color: "bg-emerald-700" },
-      { name: "Assurance animaux", color: "bg-blue-700" },
-      { name: "Emprunteur", color: "bg-sky-700" },
-      { name: "Obsèques", color: "bg-zinc-700" },
-    ],
-  },
-  {
-    title: "KNT Transport",
-    description: "Site vitrine d'un commissionnaire de transport proposant des solutions terrestres, maritimes et aériennes, avec gestion des formalités douanières dans plus de 20 pays.",
-    images: ["/projects/knt-transport.png"],
-    gradient: "from-blue-600 to-cyan-500",
-    link: "https://knt-transport.vercel.app/",
-    technologies: [
-      { name: "Transport terrestre", color: "bg-zinc-700" },
-      { name: "Transport maritime", color: "bg-blue-700" },
-      { name: "Transport aérien", color: "bg-sky-700" },
-      { name: "Douane", color: "bg-emerald-700" },
-    ],
-  },
-  {
-    title: "Cabinet Tantane",
-    description: "Site vitrine d'un cabinet d'assurance accompagnant particuliers et professionnels en santé, prévoyance, retraite, épargne et assurance emprunteur.",
-    images: ["/projects/cabinet-tantane.jpg"],
-    gradient: "from-emerald-600 to-teal-500",
-    link: "https://cabinet-tantane.vercel.app/",
-    technologies: [
-      { name: "Santé", color: "bg-emerald-700" },
-      { name: "Prévoyance", color: "bg-blue-700" },
-      { name: "Retraite", color: "bg-sky-700" },
-      { name: "Épargne", color: "bg-zinc-700" },
-    ],
-  },
-  {
+    id: "crm-hmrenov26",
     title: "CRM-HMRENOV26",
-    description: "CRM de la société hmrenov26 qui permet de gérer les employés , les devis, les leads, les rdv de l'agenda etc",
-    images: ["/projects/hmrenov26/1.png",
+    category: "crm",
+    categoryLabel: "ERP & CRM Métier",
+    description:
+      "Système de gestion complet pour entreprise du bâtiment : suivi des opportunités commerciales, génération instantanée de devis/factures, planning d'intervention et pilotage des équipes.",
+    images: [
+      "/projects/hmrenov26/1.png",
       "/projects/hmrenov26/2.png",
       "/projects/hmrenov26/3.png",
       "/projects/hmrenov26/4.png",
       "/projects/hmrenov26/5.png",
-      "/projects/hmrenov26/6.png"
-      
+      "/projects/hmrenov26/6.png",
     ],
-    gradient: "from-purple-600 to-pink-600",
     link: "https://crm-hmrenov26.vercel.app/",
-    technologies: [
-      { name: "Next.js", color: "bg-zinc-700" },
-      { name: "TypeScript", color: "bg-blue-700" },
-      { name: "Prisma", color: "bg-emerald-700" },
-      { name: "PostgreSQL", color: "bg-sky-700" },
-    ],
+    domain: "crm-hmrenov26.vercel.app",
+    status: "En production",
+    isFeatured: true,
+    technologies: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "shadcn/ui", "Recharts"],
+    highlights: ["Devis en 1 clic", "Tableau de bord financier", "Gestion d'agenda", "Rôles & Accès"],
   },
   {
+    id: "massurer",
+    title: "Massurer",
+    category: "showcase",
+    categoryLabel: "Courtage & Devis en ligne",
+    description:
+      "Site institutionnel et tunnel d'acquisition pour un courtier d'assurance indépendant : simulateur interactif multi-branches (santé, prévoyance, animaux, obsèques) avec capture de leads qualifiés.",
+    images: ["/projects/massurer.png"],
+    link: "https://massurer.vercel.app/",
+    domain: "massurer.vercel.app",
+    status: "En production",
+    technologies: ["Next.js", "TypeScript", "Formulaires Zod", "Tailwind CSS", "SEO Local"],
+    highlights: ["Simulateur interactif", "Capture de leads", "Score SEO 100/100"],
+  },
+  {
+    id: "knt-transport",
+    title: "KNT Transport",
+    category: "showcase",
+    categoryLabel: "Logistique & Fret Mondial",
+    description:
+      "Portail digital pour commissionnaire de transport multimodal (terrestre, maritime, aérien) opérant dans plus de 20 pays, avec système de devis express et gestion des formalités douanières.",
+    images: ["/projects/knt-transport.png"],
+    link: "https://knt-transport.vercel.app/",
+    domain: "knt-transport.vercel.app",
+    status: "En production",
+    technologies: ["Next.js", "TypeScript", "Responsive UX", "Micro-animations", "SEO"],
+    highlights: ["Multimodal mondial", "Demande de cotation", "Fluidité mobile"],
+  },
+  {
+    id: "ayflixtv",
     title: "AyflixTv",
-    description: "Plateforme de ventes des codes iptv pour acceder a des chaines de télévision premium et des films & series en illimité",
-    images: ["/projects/ayflixtv/hero.png",
+    category: "crm",
+    categoryLabel: "Streaming & E-Commerce",
+    description:
+      "Plateforme de vente de forfaits streaming haute disponibilité : catalogue dynamique de chaînes, checkout automatisé et espace client sécurisé pour la gestion des accès.",
+    images: [
+      "/projects/ayflixtv/hero.png",
       "/projects/ayflixtv/pricing.png",
       "/projects/ayflixtv/dash.png",
     ],
-    gradient: "from-purple-600 to-pink-600",
     link: "https://ayflixtv.vercel.app",
-    technologies: [
-      { name: "Next.js", color: "bg-zinc-700" },
-      { name: "TypeScript", color: "bg-blue-700" },
-      { name: "Prisma", color: "bg-emerald-700" },
-      { name: "PostgreSQL", color: "bg-sky-700" },
-    ],
+    domain: "ayflixtv.vercel.app",
+    status: "En production",
+    technologies: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Tailwind CSS"],
+    highlights: ["Catalogue dynamique", "Espace abonné", "Paiement sécurisé"],
   },
   {
-    title: "AYLINKER",
-    description: "Plateforme de link in bio permettant de créer des landing pages personnalisées, vendre des produits, capturer des leads et partager via une URL unique",
-    images: ["/projects/aylinker/aylinker.png",
-    ],
-    gradient: "from-purple-600 to-pink-600",
-    link: "https://aylinke.vercel.app",
-    technologies: [
-      { name: "Next.js", color: "bg-zinc-700" },
-      { name: "TypeScript", color: "bg-blue-700" },
-      { name: "Prisma", color: "bg-emerald-700" },
-      { name: "PostgreSQL", color: "bg-sky-700" },
-    ],
+    id: "cabinet-tantane",
+    title: "Cabinet Tantane",
+    category: "showcase",
+    categoryLabel: "Finance & Assurance",
+    description:
+      "Vitrine haut de gamme pour cabinet de conseil en gestion de patrimoine, assurance santé, prévoyance et épargne retraite. Design épuré inspire la confiance et maximise la conversion.",
+    images: ["/projects/cabinet-tantane.jpg"],
+    link: "https://cabinet-tantane.vercel.app/",
+    domain: "cabinet-tantane.vercel.app",
+    status: "En production",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    highlights: ["Design premium", "Tunnel de prise de RDV", "Performance mobile"],
   },
   {
+    id: "moulaycars",
     title: "MoulayCars",
-    description: "Application mobile de location de voitures à Kenitra Maroc",
-    images: ["/projects/moulaycars/moulaycars.png",
-      "/projects/moulaycars/moulaycars.png",
-    ],
-    gradient: "from-green-500 to-teal-600",
+    category: "mobile",
+    categoryLabel: "App Mobile & Location",
+    description:
+      "Application mobile de location de voitures : catalogue des véhicules en temps réel, calendrier de disponibilité et réservation simplifiée avec notifications instantanées.",
+    images: ["/projects/moulaycars/moulaycars.png"],
     link: "#",
-    technologies: [
-      { name: "React Native", color: "bg-zinc-700" },
-      { name: "TypeScript", color: "bg-blue-700" },
-      { name: "Expo", color: "bg-emerald-700" },
-      { name: "PostgreSQL", color: "bg-sky-700" },
-    ],
+    domain: "app.moulaycars",
+    status: "Terminé",
+    technologies: ["React Native", "Expo", "TypeScript", "PostgreSQL"],
+    highlights: ["Application iOS & Android", "Réservation en direct", "Disponibilité temps réel"],
   },
   {
+    id: "amstelcar",
     title: "AmstelCar",
-    description: "Site de location de voitures à Rabat Maroc",
-    images: ["/projects/amstelcar/amstel.png",
-    ],
-    gradient: "from-red-500 to-pink-600",
+    category: "showcase",
+    categoryLabel: "Location Véhicules",
+    description:
+      "Site moderne de location de véhicules à Rabat (Maroc) : mise en avant de la flotte, tarifs transparents et réservation en ligne fluide.",
+    images: ["/projects/amstelcar/amstel.png"],
     link: "#",
-    technologies: [
-      { name: "Next.js", color: "bg-zinc-700" },
-      { name: "TypeScript", color: "bg-blue-700" },
-      { name: "Prisma", color: "bg-emerald-700" },
-      { name: "PostgreSQL", color: "bg-sky-700" },
-    ],
+    domain: "amstelcar.ma",
+    status: "En ligne",
+    technologies: ["Next.js", "TypeScript", "Prisma", "Tailwind CSS"],
+    highlights: ["Réservation rapide", "Filtres de flotte", "Interface responsive"],
   },
- 
-]
+];
 
-function ProjectCard({ project, size = "small" }: { 
-  project: typeof projects[0], 
-  size?: "small" | "large" 
-}) {
-  const [isHovered, setIsHovered] = useState(false)
-  const hasMultipleImages = project.images.length > 1
+const filterTabs = [
+  { key: "all", label: "Tous les projets", count: 8 },
+  { key: "saas", label: "SaaS & IA", count: 1 },
+  { key: "crm", label: "CRM & Plateformes", count: 2 },
+  { key: "showcase", label: "Vitrines & Acquisition", count: 4 },
+  { key: "mobile", label: "Mobile", count: 1 },
+];
+
+function ProjectBrowserCard({ project }: { project: Project }) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const hasMultipleImages = project.images.length > 1;
+
+  const nextImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
+  };
+
+  const prevImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex((prev) =>
+      prev === 0 ? project.images.length - 1 : prev - 1
+    );
+  };
 
   return (
     <motion.div
+      layout
       initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -5 }}
-      className=" rounded-2xl"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.96 }}
+      transition={{ duration: 0.35 }}
+      whileHover={{ y: -6 }}
+      className="group relative rounded-2xl border border-white/10 bg-gray-950/70 backdrop-blur-xl overflow-hidden hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-950/25 transition-all duration-300 flex flex-col justify-between"
     >
-      <div className="block group relative overflow-hidden  ">
-        <Carousel className="w-full relative ">
-          <CarouselContent>
-            {project.images.map((image, imageIndex) => (
-              <CarouselItem key={imageIndex} className="relative flex items-center justify-center">
-                <Image
-                  src={image}
-                  alt={`${project.title} - Image ${imageIndex + 1}`}
-                  width={size === "large" ? 800 : 600}
-                  height={size === "large" ? 600 : 400}
-                  className={`w-full border flex items-center overflow-hidden  rounded-2xl justify-center ${size === "large" ? "max-h-[400px]" : "max-h-[300px]"} object-contain transition-transform duration-300 group-hover:scale-100`}
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          
-          {hasMultipleImages && isHovered && (
-            <>
-              <CarouselPrevious className="left-4 bg-purple-900/10 hover:bg-purple-900/20 border-none text-purple-900 hover:text-purple-500 absolute z-30" />
-              <CarouselNext className="right-4 bg-purple-900/10 hover:bg-purple-900/20 border-none text-purple-900 hover:text-purple-500 absolute z-30" />
-            </>
-          )}
-        </Carousel>
+      {/* Top Edge Beam on Hover */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-400/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
 
-        <div className={`absolute inset-0 p-${size === "large" ? "8" : "6"} flex flex-col justify-end transition-all duration-300`}>
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300" />
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileHover={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2 }}
-            className="relative z-10"
-          >
-            <h3 className={`text-${size === "large" ? "3xl" : "2xl"} font-bold text-white mb-${size === "large" ? "3" : "2"} transform translate-y-8 group-hover:translate-y-0 transition-transform duration-300`}>
-              {project.title}
-            </h3>
-            <p className={`text-white/90 leading-6 ${size === "large" ? "text-lg" : ""} mb-4 transform translate-y-8 group-hover:translate-y-0 transition-transform duration-300 delay-75 line-clamp-2`}>
-              {project.description}
-            </p>
-            <div className="flex flex-wrap gap-2 mb-4 transform translate-y-8 group-hover:translate-y-0 transition-transform duration-300 delay-100">
-              {project.technologies.map((tech) => (
-                <Badge
-                  key={tech.name}
-                  variant={size === "large" ? "secondary" : "outline"}
-                  className={`${tech.color} text-white text-xs px-2 py-1 backdrop-blur-sm ${size === "large" ? "" : "border hover:bg-opacity-100 transition-all duration-300"}`}
-                >
-                  {tech.name}
-                </Badge>
-              ))}
-            </div>
-          </motion.div>
+      <div>
+        {/* Browser Top Bar Header */}
+        <div className="px-4 py-3 bg-gray-900/90 border-b border-white/10 flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-red-500/80 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
+          </div>
+
+          <div className="px-3 py-1 rounded-md bg-white/[0.04] border border-white/5 text-[11px] font-mono text-gray-400 truncate max-w-[200px] flex items-center gap-1.5">
+            <Globe className="w-3 h-3 text-gray-500 shrink-0" />
+            <span className="truncate">{project.domain}</span>
+          </div>
+
+          <span className="flex items-center gap-1 text-[10px] font-mono text-emerald-400">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            {project.status}
+          </span>
         </div>
 
-        <Link href={project.link} target="_blank" className="absolute top-4 right-4 bg-white/10 p-2 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transform scale-50 group-hover:scale-100 transition-all duration-300 z-30">
-          <ArrowUpRight size={24} className="text-white" />
-        </Link>
+        {/* Project Image Viewport */}
+        <div className="relative aspect-[16/10] bg-gray-900 overflow-hidden group/image">
+          <Image
+            src={project.images[currentImageIndex]}
+            alt={`${project.title} - Preview ${currentImageIndex + 1}`}
+            fill
+            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+
+          {/* Image carousel arrows (if multiple images) */}
+          {hasMultipleImages && (
+            <div className="absolute inset-0 flex items-center justify-between px-2 opacity-0 group-hover/image:opacity-100 transition-opacity z-10">
+              <button
+                onClick={prevImage}
+                aria-label="Image précédente"
+                className="w-8 h-8 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center backdrop-blur-md transition-transform hover:scale-110 border border-white/20"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={nextImage}
+                aria-label="Image suivante"
+                className="w-8 h-8 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center backdrop-blur-md transition-transform hover:scale-110 border border-white/20"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+
+          {/* Carousel dots indicator */}
+          {hasMultipleImages && (
+            <div className="absolute bottom-2.5 inset-x-0 flex items-center justify-center gap-1.5 z-10">
+              {project.images.map((_, dotIdx) => (
+                <span
+                  key={dotIdx}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    dotIdx === currentImageIndex
+                      ? "w-5 bg-purple-400"
+                      : "w-1.5 bg-white/40"
+                  }`}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Live Link Button on hover */}
+          {project.link !== "#" && (
+            <Link
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/60 hover:bg-purple-600 text-white flex items-center justify-center backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 z-10 shadow-lg"
+            >
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
+          )}
+        </div>
+
+        {/* Project Info Details */}
+        <div className="p-6">
+          <div className="flex items-center justify-between gap-2 mb-2.5">
+            <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300">
+              {project.categoryLabel}
+            </span>
+          </div>
+
+          <h3 className="text-xl font-bold text-white group-hover:text-purple-300 transition-colors flex items-center gap-2 mb-2">
+            {project.title}
+          </h3>
+
+          <p className="text-xs sm:text-sm text-gray-400 leading-relaxed font-light line-clamp-3 mb-5">
+            {project.description}
+          </p>
+
+          {/* Highlights checklist if present */}
+          {project.highlights && (
+            <div className="grid grid-cols-2 gap-1.5 mb-5 font-mono text-[11px] text-gray-300">
+              {project.highlights.slice(0, 4).map((highlight) => (
+                <div key={highlight} className="flex items-center gap-1.5 text-gray-400">
+                  <CheckCircle2 className="w-3 h-3 text-purple-400 shrink-0" />
+                  <span className="truncate">{highlight}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Card Bottom: Tech Stack & Action */}
+      <div className="px-6 pb-6 pt-4 border-t border-white/5 flex items-center justify-between gap-3">
+        <div className="flex flex-wrap gap-1.5">
+          {project.technologies.slice(0, 4).map((tech) => (
+            <span
+              key={tech}
+              className="text-[10px] font-mono px-2 py-0.5 rounded-md border border-white/10 bg-white/[0.03] text-gray-400"
+            >
+              {tech}
+            </span>
+          ))}
+          {project.technologies.length > 4 && (
+            <span className="text-[10px] font-mono px-1.5 py-0.5 text-gray-500">
+              +{project.technologies.length - 4}
+            </span>
+          )}
+        </div>
+
+        {project.link !== "#" ? (
+          <Link
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs font-mono font-medium text-purple-400 hover:text-purple-300 flex items-center gap-1 transition-colors shrink-0 group/link"
+          >
+            <span>Live</span>
+            <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+          </Link>
+        ) : (
+          <span className="text-[10px] font-mono text-gray-500">Privé / Local</span>
+        )}
       </div>
     </motion.div>
-  )
+  );
 }
 
 export function SexyProjects() {
+  const [activeFilter, setActiveFilter] = useState<string>("all");
+
+  const filteredProjects =
+    activeFilter === "all"
+      ? projects
+      : projects.filter((p) => p.category === activeFilter);
+
   return (
-    <section id="projects" className="pb-32 sm:pt-28 bg-gray-900 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-transparent opacity-60" />
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-4xl mx-auto text-center mb-20">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-5xl font-bold mb-8"
+    <section
+      id="projects"
+      className="relative py-28 sm:py-36 bg-gradient-to-b from-gray-950 via-[#070c18] to-gray-950 overflow-hidden"
+    >
+      {/* Background Ambient Aura */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-gradient-to-tr from-purple-900/15 via-pink-900/10 to-transparent rounded-full blur-[140px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:36px_36px]" />
+      </div>
+
+      <div className="container relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center max-w-3xl mx-auto mb-14 sm:mb-16"
+        >
+          <Badge
+            variant="outline"
+            className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-mono border-purple-500/30 bg-purple-500/10 text-purple-300 rounded-full mb-4 shadow-sm"
           >
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
-              Mes 5 derniers projets
+            <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+            <span>Réalisations & Systèmes en Production</span>
+          </Badge>
+
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-4">
+            Des produits réels, conçus pour{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-300">
+              performer et convertir
             </span>
-          </motion.h2>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-gray-300 text-lg mb-16"
-          >
-            Découvrez mes dernières réalisations, mettant en œuvre les technologies les plus récentes
-            et les meilleures pratiques de développement. Chaque projet est une opportunité d'innover
-            et de repousser les limites de ce qui est possible.
-          </motion.p>
+          </h2>
 
-          {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
-                className="relative group"
-              >
-                <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-0 group-hover:opacity-10 rounded-xl transition-opacity duration-300`} />
-                <div className="relative p-6 bg-gray-800/50 rounded-xl border border-gray-700">
-                  <stat.icon className="w-10 h-10 text-purple-400 mx-auto mb-4" />
-                  <div className="text-3xl font-bold text-white mb-2">{stat.value}</div>
-                  <div className="text-lg font-medium text-gray-300 mb-2">{stat.label}</div>
-                  <div className="text-sm text-gray-400">{stat.description}</div>
-                </div>
-              </motion.div>
-            ))}
-          </div> */}
-        </div>
+          <p className="text-sm sm:text-base text-gray-400 leading-relaxed max-w-2xl mx-auto font-light">
+            De la plateforme SaaS propulsée par l&apos;IA aux architectures ERP/CRM haute
+            disponibilité, explorez une sélection de projets livrés en production.
+          </p>
+        </motion.div>
 
-        <div className="flex flex-col gap-8 max-w-7xl mx-auto">
-          <div className="flex flex-col md:grid md:grid-cols-2 gap-0 md:gap-8">
-            {projects.slice(0, 2).map((project) => (
-              <ProjectCard key={project.title} project={project} size="large" />
-            ))}
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {projects.slice(2, 5).map((project) => (
-              <ProjectCard key={project.title} project={project} size="small" />
-            ))}
+        {/* Filter Tabs Bar */}
+        <div className="flex items-center justify-center mb-12 sm:mb-16">
+          <div className="inline-flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-2xl border border-white/10 bg-gray-950/80 backdrop-blur-xl shadow-lg">
+            {filterTabs.map((tab) => {
+              const isActive = activeFilter === tab.key;
+              return (
+                <button
+                  key={tab.key}
+                  onClick={() => setActiveFilter(tab.key)}
+                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
+                    isActive
+                      ? "bg-purple-600 text-white shadow-md shadow-purple-600/30 font-semibold"
+                      : "text-gray-400 hover:text-white hover:bg-white/[0.04]"
+                  }`}
+                >
+                  <span>{tab.label}</span>
+                  <span
+                    className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+                      isActive
+                        ? "bg-white/20 text-white"
+                        : "bg-white/5 text-gray-500"
+                    }`}
+                  >
+                    {tab.count}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
+
+        {/* Projects Grid */}
+        <motion.div
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-20"
+        >
+          <AnimatePresence>
+            {filteredProjects.map((project) => (
+              <ProjectBrowserCard key={project.id} project={project} />
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        {/* Bottom Banner Stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="rounded-2xl border border-white/10 bg-gray-950/70 backdrop-blur-xl p-8 max-w-4xl mx-auto text-center"
+        >
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div>
+              <div className="text-3xl font-extrabold font-mono text-purple-400">15+</div>
+              <div className="text-xs text-gray-400 font-mono mt-1">Projets livrés</div>
+            </div>
+            <div>
+              <div className="text-3xl font-extrabold font-mono text-indigo-400">100%</div>
+              <div className="text-xs text-gray-400 font-mono mt-1">TypeScript Strict</div>
+            </div>
+            <div>
+              <div className="text-3xl font-extrabold font-mono text-emerald-400">99.9%</div>
+              <div className="text-xs text-gray-400 font-mono mt-1">Uptime Vercel Edge</div>
+            </div>
+            <div>
+              <div className="text-3xl font-extrabold font-mono text-pink-400">&lt; 2 sem.</div>
+              <div className="text-xs text-gray-400 font-mono mt-1">Livraison moyenne MVP</div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
-  )
+  );
 }
-

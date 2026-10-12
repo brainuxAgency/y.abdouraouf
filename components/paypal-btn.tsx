@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react/no-unescaped-entities */
 'use client'
 
 import { useEffect } from 'react';
@@ -37,7 +35,7 @@ export function MyPayPalButton({ amount, ressourceName, onApprove, isDisabled }:
     }
 
     if (isRejected) {
-        return <div>Une erreur s'est produite lors du chargement de PayPal. Veuillez réessayer.</div>;
+        return <div>Une erreur s&apos;est produite lors du chargement de PayPal. Veuillez réessayer.</div>;
     }
 
     if (!isResolved) {
