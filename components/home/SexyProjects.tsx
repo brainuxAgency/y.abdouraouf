@@ -43,8 +43,60 @@ const stats = [
 
 const projects = [
   {
+    title: "Ripostera",
+    description: "Plateforme SaaS qui automatise la planification et la diffusion de contenus sur plusieurs réseaux sociaux, avec des outils IA pour convertir les interactions en prospects.",
+    images: ["/projects/ripostera.png"],
+    gradient: "from-amber-500 to-rose-600",
+    link: "https://ripostera.vercel.app/",
+    technologies: [
+      { name: "Multi-plateforme", color: "bg-zinc-700" },
+      { name: "Planification", color: "bg-blue-700" },
+      { name: "Auto-DM", color: "bg-emerald-700" },
+      { name: "IA", color: "bg-rose-700" },
+    ],
+  },
+  {
+    title: "Massurer",
+    description: "Site vitrine et demande de devis en ligne pour un courtier d'assurance indépendant qui accompagne particuliers et professionnels.",
+    images: ["/projects/massurer.png"],
+    gradient: "from-sky-600 to-emerald-500",
+    link: "https://massurer.vercel.app/",
+    technologies: [
+      { name: "Santé", color: "bg-emerald-700" },
+      { name: "Assurance animaux", color: "bg-blue-700" },
+      { name: "Emprunteur", color: "bg-sky-700" },
+      { name: "Obsèques", color: "bg-zinc-700" },
+    ],
+  },
+  {
+    title: "KNT Transport",
+    description: "Site vitrine d'un commissionnaire de transport proposant des solutions terrestres, maritimes et aériennes, avec gestion des formalités douanières dans plus de 20 pays.",
+    images: ["/projects/knt-transport.png"],
+    gradient: "from-blue-600 to-cyan-500",
+    link: "https://knt-transport.vercel.app/",
+    technologies: [
+      { name: "Transport terrestre", color: "bg-zinc-700" },
+      { name: "Transport maritime", color: "bg-blue-700" },
+      { name: "Transport aérien", color: "bg-sky-700" },
+      { name: "Douane", color: "bg-emerald-700" },
+    ],
+  },
+  {
+    title: "Cabinet Tantane",
+    description: "Site vitrine d'un cabinet d'assurance accompagnant particuliers et professionnels en santé, prévoyance, retraite, épargne et assurance emprunteur.",
+    images: ["/projects/cabinet-tantane.jpg"],
+    gradient: "from-emerald-600 to-teal-500",
+    link: "https://cabinet-tantane.vercel.app/",
+    technologies: [
+      { name: "Santé", color: "bg-emerald-700" },
+      { name: "Prévoyance", color: "bg-blue-700" },
+      { name: "Retraite", color: "bg-sky-700" },
+      { name: "Épargne", color: "bg-zinc-700" },
+    ],
+  },
+  {
     title: "CRM-HMRENOV26",
-    description: "Plateforme de ventes des codes iptv pour acceder a des chaines de télévision premium et des films & series en illimité",
+    description: "CRM de la société hmrenov26 qui permet de gérer les employés , les devis, les leads, les rdv de l'agenda etc",
     images: ["/projects/hmrenov26/1.png",
       "/projects/hmrenov26/2.png",
       "/projects/hmrenov26/3.png",
@@ -70,7 +122,7 @@ const projects = [
       "/projects/ayflixtv/dash.png",
     ],
     gradient: "from-purple-600 to-pink-600",
-    link: "https://ayflixtv.com",
+    link: "https://ayflixtv.vercel.app",
     technologies: [
       { name: "Next.js", color: "bg-zinc-700" },
       { name: "TypeScript", color: "bg-blue-700" },
@@ -84,7 +136,7 @@ const projects = [
     images: ["/projects/aylinker/aylinker.png",
     ],
     gradient: "from-purple-600 to-pink-600",
-    link: "#",
+    link: "https://aylinke.vercel.app",
     technologies: [
       { name: "Next.js", color: "bg-zinc-700" },
       { name: "TypeScript", color: "bg-blue-700" },
