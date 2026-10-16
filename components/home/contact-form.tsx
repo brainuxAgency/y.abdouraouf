@@ -253,7 +253,7 @@ export default function ContactForm() {
 
             {/* 2. WhatsApp Direct Card (Instant Chat) */}
             <a
-              href="https://wa.me/33773195085?text=Bonjour%20Abdouraouf,%20j'ai%20vu%20votre%20portfolio%20et%20j'aimerais%20échanger%20avec%20vous%20au%20sujet%20d'un%20projet."
+              href="https://wa.me/212773543330?text=Bonjour%20Abdouraouf,%20j'ai%20vu%20votre%20portfolio%20et%20j'aimerais%20échanger%20avec%20vous%20au%20sujet%20d'un%20projet."
               target="_blank"
               rel="noopener noreferrer"
               className="block p-5 rounded-3xl border border-emerald-500/30 bg-emerald-950/20 hover:bg-emerald-950/30 backdrop-blur-2xl transition-all duration-300 group hover:border-emerald-400/50 hover:shadow-xl hover:shadow-emerald-950/30"
