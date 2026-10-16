@@ -278,7 +278,7 @@ export default function ContactForm() {
                 <ArrowUpRight className="w-4 h-4 text-emerald-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </div>
               <div className="mt-3.5 pt-3 border-t border-emerald-500/20 flex items-center justify-between text-xs text-emerald-300/90 font-light">
-                <span>+33 7 73 19 50 85</span>
+                <span>+212 7 73 54 33 30</span>
                 <span className="underline group-hover:text-emerald-200">Démarrer une conversation ↗</span>
               </div>
             </a>
@@ -409,7 +409,7 @@ export default function ContactForm() {
                       Envoyer un autre message
                     </Button>
                     <a
-                      href="https://wa.me/33773195085"
+                      href="https://wa.me/212773543330?text=Bonjour%20Abdouraouf,%20j'ai%20envoyé%20un%20brief%20via%20votre%20formulaire%20et%20j'aimerais%20accélérer%20la%20discussion."
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-emerald-500/40 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20 text-xs sm:text-sm font-light transition-colors"
