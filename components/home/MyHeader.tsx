@@ -12,32 +12,32 @@ export function MyHeader() {
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="relative p-6 sm:p-8 rounded-3xl border border-white/10 bg-gray-950/70 backdrop-blur-2xl overflow-hidden mb-12 font-['Helvetica_Neue',Helvetica,Arial,sans-serif] shadow-2xl shadow-purple-950/20"
+      className="relative p-6 sm:p-8 rounded-3xl border border-white/10 bg-[#141416]/80 backdrop-blur-2xl overflow-hidden mb-12 font-['Helvetica_Neue',Helvetica,Arial,sans-serif] shadow-2xl shadow-black/40"
     >
       {/* Ambient background glow & top shine */}
-      <div className="pointer-events-none absolute -top-20 -left-20 w-72 h-72 bg-purple-600/15 rounded-full blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-20 -right-20 w-72 h-72 bg-indigo-600/15 rounded-full blur-3xl" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-400/50 to-transparent" />
+      <div className="pointer-events-none absolute -top-20 -left-20 w-72 h-72 bg-white/[0.04] rounded-full blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-20 -right-20 w-72 h-72 bg-white/[0.03] rounded-full blur-3xl" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
 
       <div className="relative z-10 flex flex-col md:flex-row items-center md:items-start gap-6 sm:gap-8 text-center md:text-left">
         {/* Avatar with luxury aura & verified badge */}
         <div className="relative shrink-0 group">
-          <div className="absolute -inset-1 rounded-3xl bg-gradient-to-tr from-purple-600 via-pink-500 to-indigo-600 opacity-60 blur-md group-hover:opacity-100 transition duration-500" />
+          <div className="absolute -inset-1 rounded-3xl bg-gradient-to-tr from-white/30 via-white/10 to-white/30 opacity-60 blur-md group-hover:opacity-100 transition duration-500" />
 
-          <Avatar className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl border-2 border-white/20 shadow-2xl bg-gray-900 overflow-hidden">
+          <Avatar className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl border-2 border-white/20 shadow-2xl bg-[#0a0c10] overflow-hidden">
             <AvatarImage
               src="/profil.png"
               alt="Abdouraouf Youssouf"
               className="object-contain scale-[1.3] translate-y-1 transition-transform duration-500 group-hover:scale-[1.35]"
             />
-            <AvatarFallback className="bg-purple-900/30 text-purple-300 text-3xl font-light">
+            <AvatarFallback className="bg-white/5 text-zinc-300 text-3xl font-light">
               AY
             </AvatarFallback>
           </Avatar>
 
           {/* Verified creator pill */}
           <div className="absolute -bottom-2 inset-x-0 flex justify-center">
-            <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-gray-950/95 border border-emerald-500/40 text-emerald-300 text-[10px] font-light shadow-lg backdrop-blur-md">
+            <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#0a0c10]/95 border border-emerald-500/40 text-emerald-300 text-[10px] font-light shadow-lg backdrop-blur-md">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               <span>Créateur Vérifié</span>
             </span>
@@ -48,8 +48,8 @@ export function MyHeader() {
         <div className="flex-1 space-y-3.5">
           {/* Top pill tags */}
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-light">
-              <Sparkles className="w-3 h-3 text-purple-400" />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/15 text-zinc-200 text-xs font-light">
+              <Sparkles className="w-3 h-3 text-zinc-400" />
               <span>Full-Stack & Intelligence Artificielle</span>
             </span>
             <span className="text-xs text-gray-400 font-light hidden sm:inline">

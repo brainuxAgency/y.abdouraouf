@@ -42,7 +42,7 @@ const showcaseList: ShowcaseProject[] = [
       "Workflows automatisés et synchronisation d'assets",
     ],
     stack: ["Next.js", "TypeScript", "Prisma ORM", "PostgreSQL", "Tailwind CSS"],
-    images: ["/projects/ripostera.png"],
+    images: ["/about/ripostera-app.png"],
     liveUrl: "https://ripostera.vercel.app/",
     status: "En cours de développement",
     isWip: true,
@@ -170,7 +170,7 @@ export function ProjectsSection() {
             <Plus className="-top-[5.5px] -right-[5.5px]" />
 
             {/* Col gauche : label + titre */}
-            <div className="px-8 sm:px-10 pt-10 pb-8 md:border-r border-white/10">
+            <div className="p-2 md:p-5 md:border-r border-white/10">
               <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-3 block">
                 — Réalisations
               </span>
@@ -180,7 +180,7 @@ export function ProjectsSection() {
             </div>
 
             {/* Col droite : accroche + CTA */}
-            <div className="px-8 sm:px-10 pt-10 pb-8 flex flex-col justify-between gap-6 relative">
+            <div className="p-2 md:p-5 flex flex-col justify-between gap-6 relative">
               <Plus className="-top-[5.5px] left-1/2 -translate-x-1/2 hidden md:block" />
               <p className="text-sm text-zinc-400 leading-relaxed max-w-xs">
                 Des applications web conçues pour résoudre des problèmes métier réels — pas des maquettes de présentation.
@@ -229,7 +229,7 @@ export function ProjectsSection() {
             ].map((stat, i, arr) => (
               <div
                 key={stat.label}
-                className={`px-6 sm:px-8 py-5 flex flex-col gap-1 ${i < arr.length - 1 ? "border-r border-white/10" : ""}`}
+                className={`p-2 md:p-5 flex flex-col gap-1 ${i < arr.length - 1 ? "border-r border-white/10" : ""}`}
               >
                 <span className="text-xl sm:text-2xl font-bold text-white font-mono">{stat.value}</span>
                 <span className="text-[11px] text-zinc-500 uppercase tracking-wider font-mono">{stat.label}</span>
@@ -238,7 +238,7 @@ export function ProjectsSection() {
           </div>
 
           {/* ── SHOWCASE PRINCIPAL ── */}
-          <div className="px-6 sm:px-8 lg:px-10 py-10 sm:py-12">
+          <div className="p-2 md:p-5">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
               {/* Colonne Gauche : Mockup écran (Col span 7) */}
@@ -292,7 +292,7 @@ export function ProjectsSection() {
                           onClick={() => setCurrentScreenIndex(idx)}
                           className={`relative w-14 h-9 rounded-md overflow-hidden border transition-all shrink-0 cursor-pointer ${
                             currentScreenIndex === idx
-                              ? "border-[#2449D8] ring-1 ring-[#2449D8]"
+                              ? "border-orange-500 ring-1 ring-orange-500/60"
                               : "border-white/20 opacity-60 hover:opacity-100"
                           }`}
                         >
@@ -335,7 +335,7 @@ export function ProjectsSection() {
                   >
                     {/* Logo & Titre */}
                     <div className="flex items-center gap-3.5">
-                      <div className="w-10 h-10 rounded-[10px] bg-[#16181D] text-white flex items-center justify-center font-montserrat font-bold text-sm tracking-wider shadow-sm shrink-0">
+                      <div className="w-10 h-10 rounded-[10px] border border-white/15 bg-white/10 text-white flex items-center justify-center font-montserrat font-bold text-sm tracking-wider shrink-0">
                         {project.title.slice(0, 2).toUpperCase()}
                       </div>
                       <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-montserrat">
@@ -348,9 +348,9 @@ export function ProjectsSection() {
                       {project.tags.map((tag, tIdx) => (
                         <span
                           key={tIdx}
-                          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-montserrat font-medium bg-white/10 text-zinc-300 border border-white/15"
+                          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-montserrat font-medium text-zinc-400 border border-white/10"
                         >
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#2449D8]" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
                           <span>{tag.label}</span>
                         </span>
                       ))}
@@ -372,21 +372,21 @@ export function ProjectsSection() {
                     )}
 
                     {/* Points d'ingénierie */}
-                    <div className="space-y-2 border-t border-white/10 pt-4 text-xs text-zinc-400">
+                    <div className="space-y-2 pt-1 text-xs text-zinc-400">
                       {project.contribution.map((item, cIdx) => (
                         <div key={cIdx} className="flex items-start gap-2">
-                          <Check className="w-3.5 h-3.5 text-[#2449D8] shrink-0 mt-0.5" />
+                          <Check className="w-3.5 h-3.5 text-orange-400 shrink-0 mt-0.5" />
                           <span>{item}</span>
                         </div>
                       ))}
                     </div>
 
                     {/* Stack */}
-                    <div className="flex flex-wrap gap-1.5 pt-2">
+                    <div className="flex flex-wrap gap-1.5">
                       {project.stack.map((s) => (
                         <span
                           key={s}
-                          className="px-2.5 py-0.5 bg-white/10 border border-white/15 text-[11px] font-montserrat font-medium text-zinc-300 rounded-full"
+                          className="px-2.5 py-0.5 border border-white/10 text-[11px] font-montserrat font-medium text-zinc-400 rounded-full"
                         >
                           {s}
                         </span>
@@ -394,7 +394,7 @@ export function ProjectsSection() {
                     </div>
 
                     {/* Boutons d'action */}
-                    <div className="flex items-center gap-3 pt-4 border-t border-white/10">
+                    <div className="flex items-center gap-3 pt-2">
                       <Link
                         href="#contact"
                         className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-montserrat font-semibold text-white bg-white/10 hover:bg-white/15 border border-white/15 transition-colors cursor-pointer"
@@ -450,7 +450,7 @@ export function ProjectsSection() {
                   setCurrentIndex(i)
                   setCurrentScreenIndex(0)
                 }}
-                className={`group px-6 sm:px-8 py-5 text-left transition-all duration-200 cursor-pointer ${
+                className={`group p-2 md:p-5 text-left transition-all duration-200 cursor-pointer ${
                   i < arr.length - 1 ? "border-r border-white/10" : ""
                 } ${currentIndex === i ? "bg-white/[0.06]" : "hover:bg-white/[0.03]"}`}
               >

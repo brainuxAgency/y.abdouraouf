@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, CheckCircle2 } from "lucide-react"
+import { ArrowUpRight, CheckCircle2 } from "lucide-react"
 
 const highlights = [
   "Master 2 Ingénierie Informatique",
@@ -12,68 +12,63 @@ const highlights = [
 
 export function AboutMe() {
   return (
-    <section
-      id="about"
-      className="relative py-16 sm:py-20 bg-[#06070b]"
-    >
-      {/* Fondu haut depuis Methodology */}
-      <div className="pointer-events-none absolute top-0 inset-x-0 h-20 bg-gradient-to-b from-[#06070b] to-transparent" />
-      {/* Fondu bas vers ContactForm */}
-      <div className="pointer-events-none absolute bottom-0 inset-x-0 h-20 bg-gradient-to-b from-transparent to-[#050609]" />
+    <section id="about" className="relative overflow-hidden bg-[#0a0c10] py-24 sm:py-32">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[900px] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(circle,rgba(194,65,12,0.14),transparent_60%)]"
+      />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Séparateur fin éditorial */}
-        <div className="border-t border-white/[0.07] pt-12 sm:pt-16">
-
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 lg:gap-16">
-            
-            {/* Colonne gauche : photo + identité */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 min-w-0">
-              <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden shrink-0 bg-white/5">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid items-center gap-12 md:grid-cols-12 lg:gap-16">
+          {/* Portrait */}
+          <div className="md:col-span-5">
+            <div className="relative mx-auto max-w-sm rounded-[28px] border border-white/10 bg-[#0f1013] p-2 shadow-2xl shadow-black/60">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[22px]">
                 <Image
-                  src="/profil.png"
+                  src="/about/abdou.png"
                   alt="Portrait d'Abdouraouf Youssouf"
                   fill
-                  className="object-cover object-top grayscale-[15%]"
-                  sizes="80px"
+                  sizes="(min-width: 768px) 40vw, 90vw"
+                  className="object-cover object-top"
                 />
               </div>
-
-              <div className="min-w-0">
-                <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-600 block mb-1">
-                  — À propos
-                </span>
-                <h3 className="text-lg sm:text-xl font-bold text-white font-montserrat tracking-tight">
-                  Abdouraouf Youssouf
-                </h3>
-                <p className="text-sm text-zinc-400 mt-2 leading-relaxed max-w-xl">
-                  Ingénieur logiciel &amp; développeur Full-Stack. Je conçois des produits web fiables,
-                  performants et maintenables — de l&apos;architecture jusqu&apos;à l&apos;expérience utilisateur.
-                </p>
-
-                {/* Repères clés */}
-                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-4">
-                  {highlights.map((item) => (
-                    <span key={item} className="inline-flex items-center gap-1.5 text-xs text-zinc-500">
-                      <CheckCircle2 className="w-3 h-3 shrink-0" />
-                      <span>{item}</span>
-                    </span>
-                  ))}
-                </div>
-              </div>
             </div>
+          </div>
 
-            {/* Colonne droite : CTA */}
-            <div className="shrink-0">
-              <Link
-                href="/about"
-                className="group inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full text-sm font-medium text-white/70 hover:text-white border border-white/15 hover:border-white/35 hover:bg-white/[0.04] transition-all duration-200"
-              >
-                <span>En savoir plus sur moi</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </Link>
-            </div>
+          {/* Texte */}
+          <div className="md:col-span-7">
+            <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.2em] text-orange-400">
+              — À propos
+            </span>
 
+            <h2 className="font-montserrat text-3xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl">
+              Abdouraouf Youssouf
+              <span className="mt-3 block font-serif text-2xl font-normal italic text-zinc-500 sm:text-3xl">
+                ingénieur logiciel & développeur full-stack.
+              </span>
+            </h2>
+
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-zinc-400">
+              Je conçois des produits web fiables, performants et maintenables — de l&apos;architecture jusqu&apos;à
+              l&apos;expérience utilisateur.
+            </p>
+
+            <ul className="mt-8 divide-y divide-white/10 border-y border-white/10">
+              {highlights.map((item) => (
+                <li key={item} className="flex items-center gap-3 py-4 text-sm text-zinc-300">
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-orange-400" aria-hidden />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <Link
+              href="/about"
+              className="group mt-8 inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 font-montserrat text-sm font-medium text-white transition-colors duration-200 hover:border-white/35 hover:bg-white/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+            >
+              En savoir plus sur moi
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
           </div>
         </div>
       </div>

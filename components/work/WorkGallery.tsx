@@ -217,13 +217,13 @@ export function WorkGallery() {
               onClick={() => setSelectedFilter(tab.id)}
               className={`inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer ${
                 isActive
-                  ? "bg-[#16181D] text-white shadow-sm"
-                  : "bg-white/80 hover:bg-white text-[#555963] hover:text-[#16181D] border border-[#E2E4DE] shadow-xs"
+                  ? "bg-white text-[#050608] shadow-sm"
+                  : "bg-white/[0.04] hover:bg-white/[0.08] text-zinc-400 hover:text-white border border-white/10 shadow-xs"
               }`}
             >
               <span>{tab.label}</span>
               <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                isActive ? "bg-white/20 text-white" : "bg-[#F0F1EE] text-[#636773]"
+                isActive ? "bg-black/10 text-[#050608]" : "bg-white/10 text-zinc-400"
               }`}>
                 {count}
               </span>
@@ -246,12 +246,12 @@ export function WorkGallery() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.3, delay: Math.min(index * 0.05, 0.25) }}
-              className="group relative flex flex-col bg-white border border-[#E2E4DE] rounded-2xl sm:rounded-3xl p-3 sm:p-3.5 shadow-sm hover:shadow-md hover:border-[#16181D]/30 transition-all duration-300"
+              className="group relative flex flex-col bg-[#141416] border border-white/10 rounded-2xl sm:rounded-3xl p-3 sm:p-3.5 shadow-sm hover:shadow-md hover:border-white/25 transition-all duration-300"
             >
               {/* Conteneur Image format 16:10 */}
               <div 
                 onClick={() => setActiveModalProject(project)}
-                className="relative aspect-[16/10] w-full overflow-hidden rounded-xl sm:rounded-2xl bg-[#F0F1EE] cursor-pointer"
+                className="relative aspect-[16/10] w-full overflow-hidden rounded-xl sm:rounded-2xl bg-black/40 cursor-pointer"
               >
                 <Image
                   src={project.images[0]}
@@ -265,10 +265,10 @@ export function WorkGallery() {
                 <div className="absolute top-3 left-3 z-10">
                   <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium backdrop-blur-md shadow-xs ${
                     project.status === "En production" 
-                      ? "bg-white/90 text-emerald-800 border border-emerald-200/60"
+                      ? "bg-black/60 text-emerald-300 border border-emerald-500/30"
                       : project.status === "En développement"
-                      ? "bg-white/90 text-amber-800 border border-amber-200/60"
-                      : "bg-white/90 text-[#16181D] border border-[#E2E4DE]"
+                      ? "bg-black/60 text-amber-300 border border-amber-500/30"
+                      : "bg-black/60 text-white border border-white/15"
                   }`}>
                     <span className={`w-1.5 h-1.5 rounded-full ${
                       project.status === "En production" ? "bg-emerald-500" : project.status === "En développement" ? "bg-amber-500" : "bg-[#2449D8]"
@@ -279,7 +279,7 @@ export function WorkGallery() {
 
                 {/* Bouton rapide d'inspection au survol */}
                 <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
-                  <span className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/95 text-[#16181D] shadow-sm transform translate-y-2 group-hover:translate-y-0 transition-all duration-200">
+                  <span className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/95 text-[#050608] shadow-sm transform translate-y-2 group-hover:translate-y-0 transition-all duration-200">
                     Voir les détails
                   </span>
                 </div>
@@ -290,11 +290,11 @@ export function WorkGallery() {
                 <div className="min-w-0">
                   <h3 
                     onClick={() => setActiveModalProject(project)}
-                    className="text-base sm:text-lg font-bold font-sans text-[#16181D] truncate group-hover:text-[#2449D8] transition-colors cursor-pointer"
+                    className="text-base sm:text-lg font-bold font-sans text-white truncate group-hover:text-[#2449D8] transition-colors cursor-pointer"
                   >
                     {project.title}
                   </h3>
-                  <p className="text-xs sm:text-[13px] text-[#636773] font-medium truncate mt-0.5">
+                  <p className="text-xs sm:text-[13px] text-zinc-500 font-medium truncate mt-0.5">
                     {project.subtitle}
                   </p>
                 </div>
@@ -305,7 +305,7 @@ export function WorkGallery() {
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-semibold bg-[#F0F1EE] text-[#16181D] hover:bg-[#16181D] hover:text-white transition-all duration-200 cursor-pointer shadow-2xs"
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-semibold bg-white/10 text-white hover:bg-white hover:text-[#050608] transition-all duration-200 cursor-pointer shadow-2xs"
                     >
                       <span>Visiter</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
@@ -313,7 +313,7 @@ export function WorkGallery() {
                   ) : (
                     <button
                       onClick={() => setActiveModalProject(project)}
-                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-semibold bg-[#F0F1EE] text-[#16181D] hover:bg-[#16181D] hover:text-white transition-all duration-200 cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-semibold bg-white/10 text-white hover:bg-white hover:text-[#050608] transition-all duration-200 cursor-pointer"
                     >
                       <span>Détails</span>
                     </button>
@@ -345,28 +345,28 @@ export function WorkGallery() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 12 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
-              className="relative w-full max-w-3xl bg-white border border-[#E2E4DE] rounded-2xl sm:rounded-3xl shadow-xl overflow-hidden z-10 max-h-[90vh] flex flex-col my-auto"
+              className="relative w-full max-w-3xl bg-[#0f1013] border border-white/10 rounded-2xl sm:rounded-3xl shadow-xl overflow-hidden z-10 max-h-[90vh] flex flex-col my-auto"
             >
               {/* Header du modal */}
-              <div className="flex items-center justify-between p-5 sm:p-6 border-b border-[#E2E4DE] bg-[#FAFAF8]">
+              <div className="flex items-center justify-between p-5 sm:p-6 border-b border-white/10 bg-[#141416]">
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="text-xs font-semibold uppercase tracking-wider text-[#2449D8] font-sans">
                       {activeModalProject.categoryLabel}
                     </span>
-                    <span className="text-[#D9DAD5]">·</span>
-                    <span className="text-xs text-[#636773] font-medium">
+                    <span className="text-zinc-700">·</span>
+                    <span className="text-xs text-zinc-500 font-medium">
                       {activeModalProject.status}
                     </span>
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-bold font-sans text-[#16181D] mt-0.5">
+                  <h3 className="text-xl sm:text-2xl font-bold font-sans text-white mt-0.5">
                     {activeModalProject.title}
                   </h3>
                 </div>
 
                 <button
                   onClick={() => setActiveModalProject(null)}
-                  className="p-2 rounded-full text-[#636773] hover:text-[#16181D] hover:bg-[#F0F1EE] transition-colors"
+                  className="p-2 rounded-full text-zinc-500 hover:text-white hover:bg-white/10 transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -376,7 +376,7 @@ export function WorkGallery() {
               <div className="overflow-y-auto p-5 sm:p-6 space-y-6">
                 
                 {/* Image principale */}
-                <div className="relative aspect-[16/10] w-full rounded-xl sm:rounded-2xl overflow-hidden bg-[#F0F1EE] border border-[#E2E4DE]">
+                <div className="relative aspect-[16/10] w-full rounded-xl sm:rounded-2xl overflow-hidden bg-[#141416] border border-white/10">
                   <Image
                     src={activeModalProject.images[0]}
                     alt={activeModalProject.title}
@@ -394,22 +394,22 @@ export function WorkGallery() {
 
                 {/* Description */}
                 <div>
-                  <h4 className="text-xs uppercase tracking-wider text-[#636773] font-semibold mb-2 font-sans">
+                  <h4 className="text-xs uppercase tracking-wider text-zinc-500 font-semibold mb-2 font-sans">
                     Présentation
                   </h4>
-                  <p className="text-sm sm:text-base text-[#16181D] leading-relaxed">
+                  <p className="text-sm sm:text-base text-zinc-200 leading-relaxed">
                     {activeModalProject.description}
                   </p>
                 </div>
 
                 {/* Contribution technique */}
                 <div>
-                  <h4 className="text-xs uppercase tracking-wider text-[#636773] font-semibold mb-2.5 font-sans">
+                  <h4 className="text-xs uppercase tracking-wider text-zinc-500 font-semibold mb-2.5 font-sans">
                     Ma contribution technique
                   </h4>
                   <ul className="space-y-2">
                     {activeModalProject.contribution.map((c, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#4A4E58]">
+                      <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-zinc-400">
                         <CheckCircle2 className="w-4 h-4 text-[#2449D8] shrink-0 mt-0.5" />
                         <span>{c}</span>
                       </li>
@@ -419,14 +419,14 @@ export function WorkGallery() {
 
                 {/* Stack */}
                 <div>
-                  <h4 className="text-xs uppercase tracking-wider text-[#636773] font-semibold mb-2.5 font-sans">
+                  <h4 className="text-xs uppercase tracking-wider text-zinc-500 font-semibold mb-2.5 font-sans">
                     Technologies
                   </h4>
                   <div className="flex flex-wrap gap-1.5">
                     {activeModalProject.stack.map((t) => (
                       <span
                         key={t}
-                        className="px-2.5 py-1 rounded-md text-xs font-medium bg-[#F0F1EE] text-[#16181D] border border-[#E2E4DE]"
+                        className="px-2.5 py-1 rounded-md text-xs font-medium bg-white/5 text-zinc-200 border border-white/10"
                       >
                         {t}
                       </span>
@@ -437,10 +437,10 @@ export function WorkGallery() {
               </div>
 
               {/* Footer du modal avec action principale */}
-              <div className="p-4 sm:p-5 border-t border-[#E2E4DE] bg-[#FAFAF8] flex items-center justify-between gap-3">
+              <div className="p-4 sm:p-5 border-t border-white/10 bg-[#141416] flex items-center justify-between gap-3">
                 <button
                   onClick={() => setActiveModalProject(null)}
-                  className="px-4 py-2 rounded-full text-xs font-medium text-[#636773] hover:text-[#16181D]"
+                  className="px-4 py-2 rounded-full text-xs font-medium text-zinc-500 hover:text-white"
                 >
                   Fermer
                 </button>
@@ -450,13 +450,13 @@ export function WorkGallery() {
                     href={activeModalProject.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold text-white bg-[#16181D] hover:bg-[#2449D8] transition-colors shadow-sm"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold text-[#050608] bg-white hover:bg-[#2449D8] hover:text-white transition-colors shadow-sm"
                   >
                     <span>Ouvrir l&apos;application en direct</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                 ) : (
-                  <span className="text-xs text-[#636773] italic">
+                  <span className="text-xs text-zinc-500 italic">
                     Projet sous contrat ou en accès restreint
                   </span>
                 )}

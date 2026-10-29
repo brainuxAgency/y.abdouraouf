@@ -97,7 +97,7 @@ export function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-[#FAFAFA]/85 backdrop-blur-md border-b border-[#E2E4DE] py-3.5 shadow-[0_2px_12px_rgba(0,0,0,0.03)]"
+          ? "bg-[#0a0c10]/85 backdrop-blur-md border-b border-white/10 py-3.5 shadow-[0_2px_12px_rgba(0,0,0,0.4)]"
           : "bg-transparent py-5"
       }`}
     >
@@ -107,31 +107,31 @@ export function Navbar() {
           {/* Logo signature Pulsor-style : Carré sombre + Nom */}
           <Link
             href="/"
-            className="group flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2449D8] rounded-full"
+            className="group flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 rounded-full"
           >
-            <div className="w-8 h-8 rounded-[8px] bg-[#16181D] text-white flex items-center justify-center font-montserrat font-bold text-xs tracking-wider shadow-sm group-hover:bg-[#2449D8] transition-colors">
+            <div className="w-8 h-8 rounded-[8px] bg-white text-[#050608] flex items-center justify-center font-montserrat font-bold text-xs tracking-wider shadow-sm group-hover:bg-orange-700 group-hover:text-white transition-colors">
               AY
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-bold tracking-tight text-[#16181D] group-hover:text-[#2449D8] transition-colors leading-none font-montserrat">
+              <span className="text-base font-bold tracking-tight text-white group-hover:text-orange-300 transition-colors leading-none font-montserrat">
                 Abdouraouf
               </span>
-              <span className="text-[10px] font-montserrat uppercase tracking-widest text-[#636773] mt-0.5 font-medium">
+              <span className="text-xs font-montserrat uppercase tracking-widest text-zinc-500 mt-0.5 font-medium">
                 Full-Stack
               </span>
             </div>
           </Link>
 
           {/* Navigation : Liens centrés discrets en Montserrat */}
-          <nav className="hidden md:flex items-center gap-7 text-xs font-montserrat font-medium text-[#4B4F58]">
+          <nav className="hidden md:flex items-center gap-7 text-sm font-montserrat font-medium text-zinc-400">
             {navItems.map((item) => {
               const isActive = item.isAnchor && activeSection === item.href.slice(1)
               return item.isAnchor ? (
                 <button
                   key={item.name}
                   onClick={() => handleLinkClick(item.href, true)}
-                  className={`transition-colors hover:text-[#16181D] cursor-pointer ${
-                    isActive ? "text-[#16181D] font-bold" : ""
+                  className={`transition-colors hover:text-white cursor-pointer ${
+                    isActive ? "text-white font-bold" : ""
                   }`}
                 >
                   {item.name}
@@ -140,7 +140,7 @@ export function Navbar() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="transition-colors hover:text-[#16181D]"
+                  className="transition-colors hover:text-white"
                 >
                   {item.name}
                 </Link>
@@ -152,7 +152,7 @@ export function Navbar() {
           <div className="hidden md:flex items-center gap-4">
             <button
               onClick={handleContactClick}
-              className="group relative inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-montserrat font-semibold text-[#16181D] bg-[#F0F1EE] hover:bg-[#E5E7E2] border border-[#E2E4DE] transition-all cursor-pointer shadow-sm"
+              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-orange-800 px-5 py-2 font-montserrat text-sm font-semibold text-white shadow-lg shadow-orange-950/40 transition-colors duration-200 hover:bg-orange-700 active:scale-[0.98] cursor-pointer"
             >
               <span className="pulsor-btn-arrow text-[13px]">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -163,6 +163,7 @@ export function Navbar() {
                 </svg>
               </span>
               <span>Réserver un appel</span>
+              <span aria-hidden="true" className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
             </button>
 
             {!isPending && user && <NavUserMin />}
@@ -173,7 +174,7 @@ export function Navbar() {
             {!isPending && user && <NavUserMin />}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-[#16181D] hover:bg-[#F0F1EE] rounded-full transition-colors"
+              className="p-2 text-white hover:bg-white/10 rounded-full transition-colors"
               aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
             >
               {isOpen ? <X size={20} /> : <Menu size={20} />}
@@ -191,7 +192,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.18 }}
-            className="md:hidden border-b border-[#E2E4DE] bg-[#FAFAFA] shadow-lg"
+            className="md:hidden border-b border-white/10 bg-[#0a0c10] shadow-lg"
           >
             <div className="max-w-7xl mx-auto px-4 py-5 space-y-3">
               {navItems.map((item) => (
@@ -199,7 +200,7 @@ export function Navbar() {
                   {item.isAnchor ? (
                     <button
                       onClick={() => handleLinkClick(item.href, true)}
-                      className="w-full text-left py-2 text-sm font-montserrat uppercase tracking-wider text-[#16181D] hover:text-[#2449D8] transition-colors font-medium"
+                      className="w-full text-left py-2 text-base font-montserrat uppercase tracking-wider text-white hover:text-orange-300 transition-colors font-medium"
                     >
                       {item.name}
                     </button>
@@ -207,7 +208,7 @@ export function Navbar() {
                     <Link
                       href={item.href}
                       onClick={() => setIsOpen(false)}
-                      className="block py-2 text-sm font-montserrat uppercase tracking-wider text-[#16181D] hover:text-[#2449D8] transition-colors font-medium"
+                      className="block py-2 text-base font-montserrat uppercase tracking-wider text-white hover:text-orange-300 transition-colors font-medium"
                     >
                       {item.name}
                     </Link>
@@ -215,10 +216,10 @@ export function Navbar() {
                 </div>
               ))}
 
-              <div className="pt-3 border-t border-[#E2E4DE]">
+              <div className="pt-3 border-t border-white/10">
                 <button
                   onClick={handleContactClick}
-                  className="w-full py-2.5 rounded-full bg-[#16181D] text-white text-xs font-montserrat uppercase tracking-wider font-semibold text-center flex items-center justify-center gap-2"
+                  className="w-full py-2.5 rounded-full bg-orange-800 hover:bg-orange-700 text-sm font-montserrat uppercase tracking-wider font-semibold text-white text-center flex items-center justify-center gap-2 shadow-lg shadow-orange-950/40 transition-colors duration-200"
                 >
                   <span>Réserver un appel ↗</span>
                 </button>

@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { Compass, GitMerge, RefreshCw, Rocket } from "lucide-react"
 
 const steps = [
@@ -58,64 +59,109 @@ const steps = [
 ]
 
 export function Methodology() {
-  return (
-    <section id="method" className="py-24 sm:py-32 bg-gradient-to-b from-[#07090d] to-[#06070b]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 sm:pb-16 border-b border-white/10 mb-12 sm:mb-16">
-          <div className="max-w-2xl">
-            <span className="text-xs font-montserrat uppercase tracking-wider text-zinc-500 block mb-2">
-              03 // Démarche & Process
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.1]">
-              Une méthode sans surprise.
-            </h2>
-          </div>
+  const [active, setActive] = useState(0)
+  const current = steps[active]
+  const Icon = current.icon
 
-          <p className="text-sm text-zinc-400 max-w-md font-normal leading-relaxed">
-            Une progression cadrée, transparente du premier jour jusqu&apos;à la livraison, avec un lien de démonstration accessible en continu.
+  return (
+    <section id="method" className="relative overflow-hidden bg-[#0a0c10] py-24 sm:py-32">
+      {/* Trame blueprint, estompée */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_40%,#000,transparent)]"
+      />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* En-tête */}
+        <div className="max-w-2xl">
+          <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.2em] text-orange-400">
+            03 // Démarche & process
+          </span>
+          <h2 className="font-montserrat text-3xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl">
+            Une méthode{" "}
+            <span className="font-serif font-normal italic text-zinc-500">sans surprise.</span>
+          </h2>
+          <p className="mt-6 max-w-md text-base leading-relaxed text-zinc-400">
+            Une progression cadrée, transparente du premier jour jusqu&apos;à la livraison, avec un lien de démonstration
+            accessible en continu.
           </p>
         </div>
 
-        {/* Grille 4 colonnes */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {steps.map((item) => (
-            <div
-              key={item.step}
-              className="border border-[#E2E4DE] bg-white rounded-2xl p-6 sm:p-7 flex flex-col justify-between hover:border-[#16181D] transition-colors shadow-sm"
-            >
-              <div>
-                <div className="flex items-center justify-between pb-4 mb-5 border-b border-[#E2E4DE]">
-                  <span className="w-8 h-8 rounded-full bg-[#16181D] text-white flex items-center justify-center font-montserrat font-bold text-xs">
-                    {item.step}
-                  </span>
-                  <span className="text-[10px] font-montserrat text-[#636773] bg-[#F0F1EE] px-2.5 py-1 rounded-full">
-                    {item.duration}
-                  </span>
-                </div>
+        {/* Schéma de flux */}
+        <div className="relative mt-16">
+          {/* Liaison entre les nœuds */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-7 hidden h-px bg-gradient-to-r from-orange-500/60 via-orange-500/25 to-orange-500/60 md:block"
+          />
 
-                <h3 className="text-base font-bold text-[#16181D] mb-3">
-                  {item.title}
-                </h3>
-
-                <p className="text-xs text-[#4B4F58] leading-relaxed mb-6 font-normal">
-                  {item.description}
-                </p>
-
-                <div className="space-y-2 border-t border-[#E2E4DE] pt-4">
-                  {item.points.map((p, pIdx) => (
-                    <div key={pIdx} className="flex items-start gap-2 text-[11px] text-[#636773]">
-                      <span className="text-[#2449D8] font-bold leading-none mt-0.5">·</span>
-                      <span>{p}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
+          <ol className="relative grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
+            {steps.map((item, i) => {
+              const NodeIcon = item.icon
+              const isActive = i === active
+              return (
+                <li key={item.step}>
+                  <button
+                    type="button"
+                    onClick={() => setActive(i)}
+                    aria-pressed={isActive}
+                    className="group flex w-full cursor-pointer flex-col items-center text-center focus-visible:outline-none"
+                  >
+                    <span
+                      className={`relative flex h-14 w-14 items-center justify-center rounded-2xl border transition-all duration-300 ${
+                        isActive
+                          ? "border-orange-400/60 bg-orange-500/15 text-orange-300 shadow-[0_0_30px_rgba(234,88,12,0.3)]"
+                          : "border-white/10 bg-[#0a0c10] text-zinc-500 group-hover:border-white/25 group-hover:text-zinc-300"
+                      }`}
+                    >
+                      <NodeIcon className="h-5 w-5" aria-hidden />
+                    </span>
+                    <span
+                      className={`mt-4 font-mono text-[11px] transition-colors ${isActive ? "text-orange-400" : "text-zinc-600"}`}
+                    >
+                      {item.step}
+                    </span>
+                    <span
+                      className={`mt-1 font-montserrat text-sm font-semibold transition-colors ${isActive ? "text-white" : "text-zinc-400 group-hover:text-zinc-200"}`}
+                    >
+                      {item.title}
+                    </span>
+                    <span className="mt-1 font-mono text-[10px] text-zinc-600">{item.duration}</span>
+                  </button>
+                </li>
+              )
+            })}
+          </ol>
         </div>
 
+        {/* Détail de l'étape sélectionnée */}
+        <div key={current.step} className="mt-16 grid gap-10 border-t border-white/10 pt-12 md:grid-cols-12">
+          <div className="md:col-span-5">
+            <div className="mb-6 flex items-center gap-4">
+              <span className="font-montserrat text-6xl font-bold leading-none text-orange-500/25 sm:text-7xl">
+                {current.step}
+              </span>
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 text-orange-300">
+                <Icon className="h-5 w-5" aria-hidden />
+              </span>
+            </div>
+            <h3 className="font-montserrat text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+              {current.title}
+            </h3>
+          </div>
+
+          <div className="md:col-span-7">
+            <p className="text-base leading-relaxed text-zinc-300 sm:text-lg">{current.description}</p>
+            <ul className="mt-8 space-y-4">
+              {current.points.map((p) => (
+                <li key={p} className="flex items-start gap-3 text-sm leading-relaxed text-zinc-400">
+                  <span className="mt-0.5 font-mono text-orange-400">→</span>
+                  <span>{p}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   )
