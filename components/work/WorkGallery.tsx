@@ -215,15 +215,15 @@ export function WorkGallery() {
             <button
               key={tab.id}
               onClick={() => setSelectedFilter(tab.id)}
-              className={`inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer ${
+              className={`inline-flex items-center gap-2 px-4 py-2 sm:px-5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer ${
                 isActive
-                  ? "bg-white text-[#050608] shadow-sm"
+                  ? "bg-primary text-primary-foreground shadow-[0_0_20px_hsl(var(--primary)/0.3)]"
                   : "bg-white/[0.04] hover:bg-white/[0.08] text-zinc-400 hover:text-white border border-white/10 shadow-xs"
               }`}
             >
               <span>{tab.label}</span>
               <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                isActive ? "bg-black/10 text-[#050608]" : "bg-white/10 text-zinc-400"
+                isActive ? "bg-primary/15 text-primary-foreground" : "bg-white/10 text-zinc-400"
               }`}>
                 {count}
               </span>
@@ -246,7 +246,7 @@ export function WorkGallery() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.3, delay: Math.min(index * 0.05, 0.25) }}
-              className="group relative flex flex-col bg-[#141416] border border-white/10 rounded-2xl sm:rounded-3xl p-3 sm:p-3.5 shadow-sm hover:shadow-md hover:border-white/25 transition-all duration-300"
+              className="group relative flex flex-col bg-[#141416] border border-white/10 rounded-2xl sm:rounded-3xl p-3 sm:p-3.5 shadow-sm hover:shadow-[0_0_30px_hsl(var(--primary)/0.12)] hover:border-white/25 transition-all duration-300"
             >
               {/* Conteneur Image format 16:10 */}
               <div 
@@ -290,7 +290,7 @@ export function WorkGallery() {
                 <div className="min-w-0">
                   <h3 
                     onClick={() => setActiveModalProject(project)}
-                    className="text-base sm:text-lg font-bold font-sans text-white truncate group-hover:text-[#2449D8] transition-colors cursor-pointer"
+                    className="text-base sm:text-lg font-bold font-sans text-white truncate group-hover:text-primary transition-colors cursor-pointer"
                   >
                     {project.title}
                   </h3>
@@ -345,13 +345,13 @@ export function WorkGallery() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 12 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
-              className="relative w-full max-w-3xl bg-[#0f1013] border border-white/10 rounded-2xl sm:rounded-3xl shadow-xl overflow-hidden z-10 max-h-[90vh] flex flex-col my-auto"
+              className="relative w-full max-w-3xl bg-[#0f1013] border border-white/10 rounded-2xl sm:rounded-3xl shadow-xl overflow-hidden z-50 max-h-[90vh] flex flex-col my-auto"
             >
               {/* Header du modal */}
               <div className="flex items-center justify-between p-5 sm:p-6 border-b border-white/10 bg-[#141416]">
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-[#2449D8] font-sans">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-primary font-sans">
                       {activeModalProject.categoryLabel}
                     </span>
                     <span className="text-zinc-700">·</span>
@@ -410,7 +410,7 @@ export function WorkGallery() {
                   <ul className="space-y-2">
                     {activeModalProject.contribution.map((c, i) => (
                       <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-zinc-400">
-                        <CheckCircle2 className="w-4 h-4 text-[#2449D8] shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
                         <span>{c}</span>
                       </li>
                     ))}
@@ -450,7 +450,7 @@ export function WorkGallery() {
                     href={activeModalProject.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold text-[#050608] bg-white hover:bg-[#2449D8] hover:text-white transition-colors shadow-sm"
+                    className="btn-cta-gold inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold transition-colors shadow-sm"
                   >
                     <span>Ouvrir l&apos;application en direct</span>
                     <ExternalLink className="w-3.5 h-3.5" />

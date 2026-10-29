@@ -45,7 +45,7 @@ export function CtaSection({
 
 
       {/* Contenu central */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-20 sm:py-28 flex flex-col items-center text-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-2 md:px-5 py-16 sm:py-24 flex flex-col items-center text-center">
         <div className="max-w-3xl w-full">
 
           {/* Règle horizontale fine éditoriale au-dessus du titre */}
@@ -83,17 +83,17 @@ export function CtaSection({
           <div className="mt-10 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-8">
             {/* Bouton principal : Cal.com modal ou lien personnalisé */}
             {useCalModal ? (
-              <CalButton className="group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-orange-800 text-white text-sm font-semibold shadow-lg shadow-black/50 transition-all duration-200 hover:bg-orange-700 hover:scale-[1.02] active:scale-[0.99] cursor-pointer">
+              <CalButton className="btn-cta-gold group inline-flex items-center gap-2.5 px-6 py-2 rounded-full text-sm font-semibold cursor-pointer">
                 <span>{buttonText}</span>
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+                <ArrowUpRight className="w-4 h-4 text-[#23190A] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
               </CalButton>
             ) : (
               <Link
                 href={buttonHref || "/#contact"}
-                className="group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-orange-800 text-white text-sm font-semibold shadow-lg shadow-black/50 transition-all duration-200 hover:bg-orange-700 hover:scale-[1.02] active:scale-[0.99] cursor-pointer"
+                className="btn-cta-gold group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-sm font-semibold cursor-pointer"
               >
                 <span>{buttonText}</span>
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+                <ArrowUpRight className="w-4 h-4 text-[#23190A] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
               </Link>
             )}
 

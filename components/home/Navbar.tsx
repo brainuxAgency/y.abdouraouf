@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation"
 import { AuthModal } from "../auth/AuthModal"
 import { useAuthSession } from "@/hooks/useSessionStatut"
 import { NavUserMin } from "../nav-user-min"
+import { CalButton } from "../common/CalButton"
 
 const navItems = [
   { name: "Réalisations", href: "/work", isAnchor: false },
@@ -73,15 +74,6 @@ export function Navbar() {
     return () => observer.disconnect()
   }, [])
 
-  const handleContactClick = () => {
-    setIsOpen(false)
-    if (isHomePage) {
-      scrollToSection("#contact")
-    } else {
-      window.location.href = "/#contact"
-    }
-  }
-
   const handleLinkClick = (href: string, isAnchor: boolean) => {
     setIsOpen(false)
     if (isAnchor) {
@@ -101,19 +93,19 @@ export function Navbar() {
           : "bg-transparent py-5"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-2 md:px-5">
         <div className="flex items-center justify-between">
           
           {/* Logo signature Pulsor-style : Carré sombre + Nom */}
           <Link
             href="/"
-            className="group flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 rounded-full"
+            className="group flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-full"
           >
-            <div className="w-8 h-8 rounded-[8px] bg-white text-[#050608] flex items-center justify-center font-montserrat font-bold text-xs tracking-wider shadow-sm group-hover:bg-orange-700 group-hover:text-white transition-colors">
+            <div className="w-8 h-8 rounded-[8px] bg-white text-[#050608] flex items-center justify-center font-montserrat font-bold text-xs tracking-wider shadow-sm group-hover:bg-primary-dark group-hover:text-primary-foreground transition-colors">
               AY
             </div>
             <div className="flex flex-col">
-              <span className="text-base font-bold tracking-tight text-white group-hover:text-orange-300 transition-colors leading-none font-montserrat">
+              <span className="text-base font-bold tracking-tight text-white group-hover:text-primary-light transition-colors leading-none font-montserrat">
                 Abdouraouf
               </span>
               <span className="text-xs font-montserrat uppercase tracking-widest text-zinc-500 mt-0.5 font-medium">
@@ -148,12 +140,9 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Action : Bouton Pilule avec flèche 45° animée en Montserrat */}
+          {/* Action : Bouton Pilule CalButton avec flèche animée */}
           <div className="hidden md:flex items-center gap-4">
-            <button
-              onClick={handleContactClick}
-              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-orange-800 px-5 py-2 font-montserrat text-sm font-semibold text-white shadow-lg shadow-orange-950/40 transition-colors duration-200 hover:bg-orange-700 active:scale-[0.98] cursor-pointer"
-            >
+            <CalButton className="btn-cta-gold group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-5 py-2 font-montserrat text-sm font-semibold active:scale-[0.98] cursor-pointer">
               <span className="pulsor-btn-arrow text-[13px]">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                   <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -164,7 +153,7 @@ export function Navbar() {
               </span>
               <span>Réserver un appel</span>
               <span aria-hidden="true" className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-            </button>
+            </CalButton>
 
             {!isPending && user && <NavUserMin />}
           </div>
@@ -194,13 +183,13 @@ export function Navbar() {
             transition={{ duration: 0.18 }}
             className="md:hidden border-b border-white/10 bg-[#0a0c10] shadow-lg"
           >
-            <div className="max-w-7xl mx-auto px-4 py-5 space-y-3">
+            <div className="max-w-7xl mx-auto px-2 md:px-5 py-5 space-y-3">
               {navItems.map((item) => (
                 <div key={item.name}>
                   {item.isAnchor ? (
                     <button
                       onClick={() => handleLinkClick(item.href, true)}
-                      className="w-full text-left py-2 text-base font-montserrat uppercase tracking-wider text-white hover:text-orange-300 transition-colors font-medium"
+                      className="w-full text-left py-2 text-base font-montserrat uppercase tracking-wider text-white hover:text-primary-light transition-colors font-medium"
                     >
                       {item.name}
                     </button>
@@ -208,7 +197,7 @@ export function Navbar() {
                     <Link
                       href={item.href}
                       onClick={() => setIsOpen(false)}
-                      className="block py-2 text-base font-montserrat uppercase tracking-wider text-white hover:text-orange-300 transition-colors font-medium"
+                      className="block py-2 text-base font-montserrat uppercase tracking-wider text-white hover:text-primary-light transition-colors font-medium"
                     >
                       {item.name}
                     </Link>
@@ -217,12 +206,11 @@ export function Navbar() {
               ))}
 
               <div className="pt-3 border-t border-white/10">
-                <button
-                  onClick={handleContactClick}
-                  className="w-full py-2.5 rounded-full bg-orange-800 hover:bg-orange-700 text-sm font-montserrat uppercase tracking-wider font-semibold text-white text-center flex items-center justify-center gap-2 shadow-lg shadow-orange-950/40 transition-colors duration-200"
+                <CalButton
+                  className="btn-cta-gold w-full py-2.5 rounded-full text-sm font-montserrat uppercase tracking-wider font-semibold text-center flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>Réserver un appel ↗</span>
-                </button>
+                </CalButton>
               </div>
             </div>
           </motion.div>

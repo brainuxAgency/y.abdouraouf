@@ -71,10 +71,10 @@ export function Methodology() {
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_40%,#000,transparent)]"
       />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-2 md:px-5">
         {/* En-tête */}
         <div className="max-w-2xl">
-          <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.2em] text-orange-400">
+          <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.2em] text-primary">
             03 // Démarche & process
           </span>
           <h2 className="font-montserrat text-3xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl">
@@ -92,7 +92,7 @@ export function Methodology() {
           {/* Liaison entre les nœuds */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-7 hidden h-px bg-gradient-to-r from-orange-500/60 via-orange-500/25 to-orange-500/60 md:block"
+            className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-7 hidden h-px bg-gradient-to-r from-primary/60 via-primary/25 to-primary/60 md:block"
           />
 
           <ol className="relative grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
@@ -110,14 +110,14 @@ export function Methodology() {
                     <span
                       className={`relative flex h-14 w-14 items-center justify-center rounded-2xl border transition-all duration-300 ${
                         isActive
-                          ? "border-orange-400/60 bg-orange-500/15 text-orange-300 shadow-[0_0_30px_rgba(234,88,12,0.3)]"
+                          ? "border-primary/60 bg-primary/15 text-primary-light shadow-[0_0_30px_hsl(var(--primary-dark)/0.3)]"
                           : "border-white/10 bg-[#0a0c10] text-zinc-500 group-hover:border-white/25 group-hover:text-zinc-300"
                       }`}
                     >
                       <NodeIcon className="h-5 w-5" aria-hidden />
                     </span>
                     <span
-                      className={`mt-4 font-mono text-[11px] transition-colors ${isActive ? "text-orange-400" : "text-zinc-600"}`}
+                      className={`mt-4 font-mono text-[11px] transition-colors ${isActive ? "text-primary" : "text-zinc-600"}`}
                     >
                       {item.step}
                     </span>
@@ -138,10 +138,10 @@ export function Methodology() {
         <div key={current.step} className="mt-16 grid gap-10 border-t border-white/10 pt-12 md:grid-cols-12">
           <div className="md:col-span-5">
             <div className="mb-6 flex items-center gap-4">
-              <span className="font-montserrat text-6xl font-bold leading-none text-orange-500/25 sm:text-7xl">
+              <span className="font-montserrat text-6xl font-bold leading-none text-primary/25 sm:text-7xl">
                 {current.step}
               </span>
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 text-orange-300">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 text-primary-light">
                 <Icon className="h-5 w-5" aria-hidden />
               </span>
             </div>
@@ -155,7 +155,7 @@ export function Methodology() {
             <ul className="mt-8 space-y-4">
               {current.points.map((p) => (
                 <li key={p} className="flex items-start gap-3 text-sm leading-relaxed text-zinc-400">
-                  <span className="mt-0.5 font-mono text-orange-400">→</span>
+                  <span className="mt-0.5 font-mono text-primary">→</span>
                   <span>{p}</span>
                 </li>
               ))}
