@@ -10,7 +10,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <div className=" w-full flex flex-col min-h-screen">
+    <div className="w-full flex flex-col min-h-screen bg-[#0a0c10] text-white">
       <Navbar />
       {/* <VisitorTracker /> */}
 

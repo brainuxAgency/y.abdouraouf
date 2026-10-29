@@ -29,11 +29,13 @@ export default function ClientProviders({
     return (
         <>
             <QueryClientProvider client={queryClient}>
-                {/* <ThemeProvider attribute="class" defaultTheme="system" > */}
+                {PAYPAL_CLIENT_ID ? (
                     <PayPalScriptProvider options={initialOptions}>
                         {children}
                     </PayPalScriptProvider>
-                {/* </ThemeProvider> */}
+                ) : (
+                    children
+                )}
             </QueryClientProvider>
         </>
     );

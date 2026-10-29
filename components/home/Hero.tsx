@@ -1,355 +1,112 @@
-"use client";
+"use client"
 
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import { motion, useInView } from "framer-motion";
-import { ArrowRightIcon, Sparkles, Terminal, MapPin, CheckCircle2 } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { socialLinks } from "@/src/constants/social-icons";
-
-// ── Typewriter hook ───────────────────────────────────────────────────────────
-function useTypewriter(words: string[], speed = 70, pause = 1800) {
-  const [text, setText] = useState("");
-  const [wordIndex, setWordIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
-  const [deleting, setDeleting] = useState(false);
-
-  useEffect(() => {
-    const current = words[wordIndex % words.length];
-    const timeout = setTimeout(
-      () => {
-        if (!deleting) {
-          setText(current.slice(0, charIndex + 1));
-          if (charIndex + 1 === current.length) {
-            setTimeout(() => setDeleting(true), pause);
-          } else {
-            setCharIndex((c) => c + 1);
-          }
-        } else {
-          setText(current.slice(0, charIndex - 1));
-          if (charIndex - 1 === 0) {
-            setDeleting(false);
-            setWordIndex((w) => (w + 1) % words.length);
-            setCharIndex(0);
-          } else {
-            setCharIndex((c) => c - 1);
-          }
-        }
-      },
-      deleting ? speed / 2 : speed
-    );
-    return () => clearTimeout(timeout);
-  }, [charIndex, deleting, wordIndex, words, speed, pause]);
-
-  return text;
-}
-
-// ── Animated counter ──────────────────────────────────────────────────────────
-function Counter({ value, suffix = "" }: { value: number; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true });
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!isInView) return;
-    let start = 0;
-    const duration = 1200;
-    const step = Math.ceil(value / (duration / 16));
-    const timer = setInterval(() => {
-      start += step;
-      if (start >= value) {
-        setCount(value);
-        clearInterval(timer);
-      } else {
-        setCount(start);
-      }
-    }, 16);
-    return () => clearInterval(timer);
-  }, [isInView, value]);
-
-  return (
-    <span ref={ref}>
-      {count}
-      {suffix}
-    </span>
-  );
-}
-
-const techStack = [
-  { name: "React", variant: "default" as const },
-  { name: "Next.js", variant: "secondary" as const },
-  { name: "TypeScript", variant: "secondary" as const },
-  { name: "Node.js", variant: "outline" as const },
-  { name: "NestJS", variant: "outline" as const },
-  { name: "PostgreSQL", variant: "outline" as const },
-  { name: "Prisma", variant: "outline" as const },
-  { name: "Tailwind CSS", variant: "secondary" as const },
-];
-
-const stats = [
-  { value: 3, suffix: "+", label: "Années d'expérience" },
-  { value: 20, suffix: "+", label: "Projets livrés" },
-  { value: 100, suffix: "%", label: "Clients satisfaits" },
-];
-
-const roles = [
-  "Développeur Full Stack",
-  "Expert React & Next.js",
-  "Architecte Backend & API",
-  "Intégrateur Solutions IA",
-];
+import Link from "next/link"
+import { motion } from "framer-motion"
+import { StackMarquee } from "./stack-marquee"
 
 export function Hero() {
-  const role = useTypewriter(roles);
-
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-gray-900 via-[#0f1729] to-gray-900 text-white pt-24 pb-12 sm:pt-28 sm:pb-16 lg:py-32">
-      {/* Background Subtle Grid & Animated Glow */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-grid-white/[0.02] bg-grid-16">
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-500/10 to-transparent"
-            animate={{
-              x: ["-100%", "100%"],
-            }}
-            transition={{
-              repeat: Infinity,
-              duration: 8,
-              ease: "linear",
-            }}
-          />
-        </div>
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-purple-600/15 blur-[120px] rounded-full" />
-        <div className="absolute top-1/2 -right-32 w-[350px] h-[350px] bg-indigo-600/15 blur-[120px] rounded-full" />
-        <div className="absolute bottom-0 -left-32 w-[350px] h-[350px] bg-pink-600/10 blur-[120px] rounded-full" />
-      </div>
+    <section className="relative pt-36 pb-16 sm:pt-44 sm:pb-24 overflow-hidden bg-gradient-to-b from-[#0d1017] to-[#0a0c10]">
+      
+      {/* Texture d'arrière-plan signature Pulsor : Grille de points avec masque radial */}
+      <div className="pointer-events-none absolute inset-0 bg-pulsor-dots bg-pulsor-dots-fade opacity-85" />
 
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* ──────────── LEFT COLUMN (Info & Actions) ──────────── */}
-          <div className="lg:col-span-7 flex flex-col text-center lg:text-left items-center lg:items-start">
-            {/* Status Badge (shadcn style) */}
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-            >
-              <Badge
-                variant="outline"
-                className="inline-flex items-center gap-2 px-3 py-1 text-xs font-normal border-emerald-500/30 bg-emerald-500/10 text-emerald-400 rounded-full mb-4 shadow-sm"
-              >
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-                </span>
-                <span>Disponible pour de nouveaux projets</span>
-              </Badge>
-            </motion.div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* En-tête centré monumental avec le vrai positionnement */}
+        <div className="max-w-5xl mx-auto text-center">
 
-            {/* Name */}
-            <motion.h1
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]"
-            >
-              Abdouraouf{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-300">
-                Youssouf
-              </span>
-            </motion.h1>
-
-            {/* Typewriter Role */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.25 }}
-              className="flex items-center gap-2 mt-3 font-mono text-sm sm:text-base text-purple-300"
-            >
-              <Terminal className="size-4 text-purple-400 shrink-0" />
-              <span className="text-gray-400">role:</span>
-              <span className="font-semibold text-white min-h-[1.5rem] inline-block">
-                {role}
-              </span>
-              <span className="w-1.5 h-4 bg-purple-400 animate-pulse inline-block" />
-            </motion.div>
-
-            {/* Bio text */}
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35 }}
-              className="mt-4 text-sm sm:text-base text-gray-300 leading-relaxed max-w-xl"
-            >
-              Développeur Full Stack spécialisé en{" "}
-              <span className="text-white font-medium">React, Next.js & Node.js</span>.
-              Je conçois des applications web et mobiles performantes, avec une architecture
-              scalable et l’intégration de{" "}
-              <span className="text-purple-300 font-medium">solutions IA</span> pour optimiser
-              vos flux de travail.
-            </motion.p>
-
-            {/* Actions: Shadcn Buttons & Socials */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.45 }}
-              className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mt-6"
-            >
-              <Button
-                asChild
-                size="default"
-                className="bg-purple-600 hover:bg-purple-700 text-white font-medium gap-2 shadow-lg shadow-purple-900/30 h-9 px-4 text-sm rounded-md"
-              >
-                <Link href="#contact">
-                  <Sparkles className="size-3.5" />
-                  Démarrer un projet
-                  <ArrowRightIcon className="size-3.5" />
-                </Link>
-              </Button>
-
-              <Button
-                asChild
-                variant="outline"
-                size="default"
-                className="border-white/15 bg-white/5 hover:bg-white/10 hover:text-white font-medium text-gray-200 gap-2 h-9 px-4 text-sm rounded-md"
-              >
-                <Link href="#projects">Voir les projets</Link>
-              </Button>
-
-              <div className="hidden sm:block h-5 w-px bg-white/15 mx-1" />
-
-              {/* Social icons */}
-              <div className="flex items-center gap-1">
-                {socialLinks.map((link) => (
-                  <Button
-                    key={link.name}
-                    asChild
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded-md"
-                  >
-                    <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      title={link.name}
-                    >
-                      <link.icon className="size-4" />
-                    </a>
-                  </Button>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Stats row */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.55 }}
-              className="grid grid-cols-3 gap-6 sm:gap-8 mt-8 pt-6 border-t border-white/10 w-full max-w-lg"
-            >
-              {stats.map((s) => (
-                <div key={s.label} className="text-center lg:text-left">
-                  <div className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                    <Counter value={s.value} suffix={s.suffix} />
-                  </div>
-                  <p className="text-xs text-gray-400 mt-0.5">{s.label}</p>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* ──────────── RIGHT COLUMN (Developer Profile Card) ──────────── */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="lg:col-span-5 flex justify-center"
+          {/* Titre principal monochrome en deux lignes - Duo Sans-serif Bold & Serif Italic */}
+          <motion.h1
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.08 }}
+            className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.25rem] xl:text-[3.65rem] tracking-tight leading-[1.14] sm:leading-[1.1] text-white max-w-5xl mx-auto"
           >
-            <Card className="w-full max-w-sm border-white/10 bg-gray-950/70 backdrop-blur-xl shadow-2xl shadow-purple-950/30 overflow-hidden">
-              {/* Window-like Header */}
-              <CardHeader className="p-3 bg-gray-900/80 border-b border-white/10 flex flex-row items-center justify-between space-y-0">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-                </div>
-                <div className="flex items-center gap-1.5 text-xs font-mono text-gray-400">
-                  <Terminal className="size-3 text-purple-400" />
-                  <span>developer.tsx</span>
-                </div>
-                <span className="w-6" />
-              </CardHeader>
+            {/* Ligne 1 : Développeur Full-Stack (Sans Bold) + React & Next.js (Serif Italic) */}
+            <span className="block sm:whitespace-nowrap">
+              <span className="font-sans font-extrabold tracking-tight">
+                Développeur Full‑Stack
+              </span>{" "}
+              <span className="font-serif italic font-normal tracking-normal">
+                React &amp; Next.js
+              </span>
+            </span>
 
-              <CardContent className="p-5 flex flex-col items-center">
-                {/* Framed Avatar */}
-                <div className="relative mb-4">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/25 to-pink-500/25 rounded-full blur-md" />
-                  <Avatar className="h-28 w-28 sm:h-32 sm:w-32 border-2 border-purple-500/40 shadow-lg">
-                    <AvatarImage
-                      src="/profil.png"
-                      alt="Abdouraouf Youssouf"
-                      className="object-cover object-top scale-110"
-                    />
-                    <AvatarFallback className="bg-purple-900/40 text-purple-300 font-bold text-xl">
-                      AY
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="absolute bottom-1 right-1 p-1 bg-gray-900 rounded-full border border-white/20 shadow">
-                    <CheckCircle2 className="size-4 text-emerald-400" />
-                  </div>
-                </div>
+            {/* Ligne 2 : pour vos applications (Serif Italic) + web & SaaS. (Sans Bold) */}
+            <span className="block mt-1 sm:mt-2.5 sm:whitespace-nowrap">
+              <span className="font-serif italic font-normal tracking-normal">
+                pour vos applications
+              </span>{" "}
+              <span className="font-sans font-extrabold tracking-tight">
+                web &amp; SaaS.
+              </span>
+            </span>
+          </motion.h1>
 
-                {/* Identity */}
-                <div className="text-center mb-4">
-                  <h3 className="font-semibold text-white text-base tracking-tight">
-                    Abdouraouf Youssouf
-                  </h3>
-                  <p className="text-xs text-purple-300 font-mono mt-0.5">
-                    Full Stack Developer
-                  </p>
-                  <div className="flex items-center justify-center gap-1 text-[11px] text-gray-400 mt-1.5">
-                    <MapPin className="size-3 text-purple-400" />
-                    <span>France · Disponible en Remote</span>
-                  </div>
-                </div>
+          {/* Description calibrée en exactement deux lignes */}
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.18 }}
+            className="mt-6 sm:mt-8 text-base sm:text-lg text-zinc-400 max-w-3xl mx-auto leading-relaxed font-normal"
+          >
+            <span className="block sm:whitespace-nowrap">
+              Je conçois des applications web sur mesure, des outils métier et des produits SaaS,
+            </span>
+            <span className="block mt-0.5 sm:mt-1 sm:whitespace-nowrap">
+              avec une exigence stricte sur la maintenabilité, l&apos;architecture et la valeur produit.
+            </span>
+          </motion.p>
+          {/* Groupe de boutons d'appel à l'action centrés */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.28 }}
+            className="flex flex-wrap items-center justify-center gap-3.5 mt-8 sm:mt-10"
+          >
+            {/* Bouton Principal Noir Pilule avec double flèche animée */}
+            <Link
+              href="#contact"
+              className="group relative inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full text-sm font-montserrat font-semibold text-white bg-orange-800 hover:bg-orange-700 transition-all duration-300 shadow-md shadow-black/30 cursor-pointer"
+            >
+              <span>Discuter d&apos;un projet</span>
+              <span className="pulsor-btn-arrow text-sm">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M3 11L11 3H5M11 3V9" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+            </Link>
 
-                {/* Tech Badges (shadcn badges) */}
-                <div className="w-full pt-3 border-t border-white/10">
-                  <p className="text-[11px] font-mono text-gray-400 uppercase tracking-wider mb-2 text-center lg:text-left">
-                    Technologies clés
-                  </p>
-                  <div className="flex flex-wrap gap-1.5 justify-center lg:justify-start">
-                    {techStack.map((tech) => (
-                      <Badge
-                        key={tech.name}
-                        variant="outline"
-                        className="text-xs px-2.5 py-0.5 font-normal rounded-md border-white/10 bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white"
-                      >
-                        {tech.name}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Status Bar */}
-                <div className="w-full mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-gray-400 font-mono">
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    Status: En ligne
-                  </span>
-                  <span>v2026.1</span>
-                </div>
-              </CardContent>
-            </Card>
+            {/* Bouton Secondaire Pilule Claire vers la page /work */}
+            <Link
+              href="/work"
+              className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-montserrat font-medium text-white bg-white/10 hover:bg-white/15 border border-white/20 transition-all duration-200 cursor-pointer"
+            >
+              <svg width="16" height="16" viewBox="0 0 18 18" fill="none" className="text-zinc-400 group-hover:text-white transition-colors">
+                <path d="M3.25 12.25L2.4 12.53C2.08 12.64 1.75 12.4 1.75 12.06V5.95C1.75 5.6 2.08 5.36 2.4 5.47L3.25 5.75" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M7.25 14.13L6.44 14.46C6.11 14.6 5.75 14.36 5.75 14V4C5.75 3.64 6.11 3.4 6.44 3.54L7.25 3.88" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M10.46 1.83L15.67 4.23C16.02 4.4 16.25 4.75 16.25 5.14V12.86C16.25 13.25 16.02 13.6 15.67 13.77L10.46 16.17C10.13 16.32 9.75 16.08 9.75 15.72V2.28C9.75 1.92 10.13 1.67 10.46 1.83Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span>Voir mes réalisations</span>
+            </Link>
           </motion.div>
+
         </div>
+
+        {/* Défilement infini de la stack technique */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.38 }}
+        >
+          <StackMarquee />
+        </motion.div>
+
       </div>
     </section>
-  );
+  )
 }

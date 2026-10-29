@@ -9,6 +9,13 @@ export default {
   ],
   theme: {
   	extend: {
+      fontFamily: {
+        sans: ['var(--font-inter)', 'var(--font-geist-sans)', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-playfair)', 'Georgia', 'serif'],
+        playfair: ['var(--font-playfair)', 'Georgia', 'serif'],
+        montserrat: ['var(--font-montserrat)', 'sans-serif'],
+        mono: ['var(--font-montserrat)', 'sans-serif'], // Remplace le mono par Montserrat
+      },
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

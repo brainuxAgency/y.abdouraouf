@@ -1,70 +1,56 @@
 "use client"
+
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
-import { Button } from "../ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
-import { usePathname } from 'next/navigation'
+import { usePathname } from "next/navigation"
 import { AuthModal } from "../auth/AuthModal"
 import { useAuthSession } from "@/hooks/useSessionStatut"
 import { NavUserMin } from "../nav-user-min"
 
 const navItems = [
-  {
-    name: "Services",
-    href: "#services",
-    isAnchor: true
-  },
-  {
-    name: "Projets",
-    href: "#projects",
-    isAnchor: true
-  },
-  // { 
-  //   name: "Mes outils", 
-  //   href: "/outils", 
-  //   isAnchor: false 
-  // },
-  // {
-  //   name: "Contact",
-  //   href: "#contact",
-  //   isAnchor: true
-  // },
-  {
-    name: "Ressources",
-    href: "/ressources",
-    isAnchor: false
-  },
+  { name: "Réalisations", href: "/work", isAnchor: false },
+  { name: "Offre", href: "#services", isAnchor: true },
+  { name: "Méthode", href: "#method", isAnchor: true },
+  { name: "À propos", href: "/about", isAnchor: false },
+  { name: "Ressources", href: "/ressources", isAnchor: false },
 ]
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("")
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
   const isHomePage = pathname === "/"
   const menuRef = useRef<HTMLDivElement>(null)
 
-  const {user, isPending} = useAuthSession()
+  const { user, isPending } = useAuthSession()
 
-  // Fonction pour gérer le scroll smooth vers les sections
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   const scrollToSection = (sectionId: string) => {
-    setIsOpen(false) // Ferme le menu mobile
+    setIsOpen(false)
     const element = document.querySelector(sectionId)
     if (element) {
-      const navHeight = 64 // Hauteur de la navbar
+      const navHeight = 72
       const elementPosition = element.getBoundingClientRect().top
       const offsetPosition = elementPosition + window.pageYOffset - navHeight
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: "smooth"
+        behavior: "smooth",
       })
     }
   }
 
-  // Observer pour détecter la section active
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -75,12 +61,11 @@ export function Navbar() {
         })
       },
       {
-        rootMargin: "-50% 0px",
-        threshold: 0
+        rootMargin: "-40% 0px -40% 0px",
+        threshold: 0,
       }
     )
 
-    // Observer les sections
     document.querySelectorAll("section[id]").forEach((section) => {
       observer.observe(section)
     })
@@ -88,177 +73,162 @@ export function Navbar() {
     return () => observer.disconnect()
   }, [])
 
-  // Fonction modifiée pour gérer le scroll et la redirection
   const handleContactClick = () => {
-    setIsOpen(false) // Ferme le menu mobile
-
+    setIsOpen(false)
     if (isHomePage) {
-      // Si on est sur la page d'accueil, scroll vers la section contact
-      const element = document.querySelector("#contact")
-      if (element) {
-        const navHeight = 64
-        const elementPosition = element.getBoundingClientRect().top
-        const offsetPosition = elementPosition + window.pageYOffset - navHeight
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth"
-        })
-      }
+      scrollToSection("#contact")
     } else {
-      // Si on est sur une autre page, rediriger vers home avec anchor
       window.location.href = "/#contact"
     }
   }
 
-  // Fermer le menu quand on clique en dehors
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsOpen(false)
+  const handleLinkClick = (href: string, isAnchor: boolean) => {
+    setIsOpen(false)
+    if (isAnchor) {
+      if (isHomePage) {
+        scrollToSection(href)
+      } else {
+        window.location.href = `/${href}`
       }
     }
-
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [isOpen])
-
-  const handleAnchorClick = (href: string) => {
-    setIsOpen(false)
-
-    if (isHomePage) {
-      // Si on est sur la page d'accueil, scroll vers la section
-      scrollToSection(href)
-    } else {
-      // Si on est sur une autre page, rediriger vers home avec anchor
-      window.location.href = `/${href}`
-    }
-  }
-
-  const renderNavLink = (item: typeof navItems[0]) => {
-    const isActive = item.isAnchor && activeSection === item.href.slice(1)
-    const className = `text-gray-300 hover:text-purple-400 transition-colors ${isActive ? "text-purple-400" : ""}`
-
-    if (item.isAnchor) {
-      return (
-        <button
-          onClick={() => handleAnchorClick(item.href)}
-          className={className}
-        >
-          {item.name}
-        </button>
-      )
-    }
-
-    return (
-      <Link
-        href={item.href}
-        className={className}
-        onClick={() => setIsOpen(false)}
-      >
-        {item.name}
-      </Link>
-    )
   }
 
   return (
-    <nav className="fixed top-0 w-full flex justify-center z-[200] bg-gray-900/80 backdrop-blur-md border-b border-gray-800">
-      <div className="xl:container w-full px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo et Nom */}
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-[#FAFAFA]/85 backdrop-blur-md border-b border-[#E2E4DE] py-3.5 shadow-[0_2px_12px_rgba(0,0,0,0.03)]"
+          : "bg-transparent py-5"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between">
+          
+          {/* Logo signature Pulsor-style : Carré sombre + Nom */}
           <Link
             href="/"
-            className="flex items-center space-x-3"
+            className="group flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2449D8] rounded-full"
           >
-            <Avatar className="h-10 w-10 border border-purple-500/30">
-              <AvatarImage src="/profil.png" alt="Photo de profil" className="object-contain scale-[1.3] translate-y-1" />
-              <AvatarFallback className="bg-purple-500/20 text-purple-400 font-bold">
-                AY
-              </AvatarFallback>
-            </Avatar>
+            <div className="w-8 h-8 rounded-[8px] bg-[#16181D] text-white flex items-center justify-center font-montserrat font-bold text-xs tracking-wider shadow-sm group-hover:bg-[#2449D8] transition-colors">
+              AY
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm font-bold tracking-tight text-[#16181D] group-hover:text-[#2449D8] transition-colors leading-none font-montserrat">
+                Abdouraouf
+              </span>
+              <span className="text-[10px] font-montserrat uppercase tracking-widest text-[#636773] mt-0.5 font-medium">
+                Full-Stack
+              </span>
+            </div>
           </Link>
 
-          {/* Navigation Desktop */}
-          <div className="hidden md:flex items-center gap-6">
-            <div className="flex items-center space-x-8">
-              {navItems.map((item) => (
-                <div key={item.name}>
-                  {renderNavLink(item)}
-                </div>
-              ))}
-            </div>
-            <div className="flex items-center gap-3 pl-4 border-l border-gray-800">
-              <Button
-                className="bg-purple-600 font-bold hover:bg-purple-700 text-white whitespace-nowrap"
-                onClick={handleContactClick}
-              >
-                Prenez rendez-vous
-              </Button>
-              {
-              !isPending && !user ? null : <NavUserMin />
-            }
-      
-              {/* <Button
-                className="bg-blue-600 font-bold hover:bg-blue-700 text-white"
-                onClick={() => setIsAuthModalOpen(true)}
-              >
-                Login
-              </Button> */}
-            </div>
+          {/* Navigation : Liens centrés discrets en Montserrat */}
+          <nav className="hidden md:flex items-center gap-7 text-xs font-montserrat font-medium text-[#4B4F58]">
+            {navItems.map((item) => {
+              const isActive = item.isAnchor && activeSection === item.href.slice(1)
+              return item.isAnchor ? (
+                <button
+                  key={item.name}
+                  onClick={() => handleLinkClick(item.href, true)}
+                  className={`transition-colors hover:text-[#16181D] cursor-pointer ${
+                    isActive ? "text-[#16181D] font-bold" : ""
+                  }`}
+                >
+                  {item.name}
+                </button>
+              ) : (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="transition-colors hover:text-[#16181D]"
+                >
+                  {item.name}
+                </Link>
+              )
+            })}
+          </nav>
+
+          {/* Action : Bouton Pilule avec flèche 45° animée en Montserrat */}
+          <div className="hidden md:flex items-center gap-4">
+            <button
+              onClick={handleContactClick}
+              className="group relative inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-montserrat font-semibold text-[#16181D] bg-[#F0F1EE] hover:bg-[#E5E7E2] border border-[#E2E4DE] transition-all cursor-pointer shadow-sm"
+            >
+              <span className="pulsor-btn-arrow text-[13px]">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+              <span>Réserver un appel</span>
+            </button>
+
+            {!isPending && user && <NavUserMin />}
           </div>
 
-          {/* Bouton Menu Mobile */}
-          <div className="flex items-center gap-4 md:hidden">
-            {
-              !isPending && !user ? null : <NavUserMin />
-            }
-      
-            <Button  size={'icon'}
-              className=" text-gray-300 border hover:text-purple-400"
+          {/* Menu Mobile Trigger */}
+          <div className="flex items-center gap-2 md:hidden">
+            {!isPending && user && <NavUserMin />}
+            <button
               onClick={() => setIsOpen(!isOpen)}
+              className="p-2 text-[#16181D] hover:bg-[#F0F1EE] rounded-full transition-colors"
+              aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
             >
-              {isOpen ? <X size={30} /> : <Menu size={30} />}
-            </Button>
+              {isOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Menu Mobile */}
+      {/* Menu Déroulant Mobile en Montserrat */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             ref={menuRef}
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="absolute top-16 left-0 right-0 bg-gray-900/95 backdrop-blur-md border-b-2 rounded-b-lg border-gray-800"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.18 }}
+            className="md:hidden border-b border-[#E2E4DE] bg-[#FAFAFA] shadow-lg"
           >
-            <div className="container mx-auto px-4 py-4">
-              <div className="flex flex-col space-y-3">
-                {navItems.map((item) => (
-                  <div key={item.name} className=" border-gray-800 last:border-none">
-                    {renderNavLink(item)}
-                  </div>
-                ))}
-                <div className="pt-2">
-                  <Button
-                    className="bg-purple-600 hover:bg-purple-700 text-white w-full"
-                    onClick={handleContactClick}
-                  >
-                    Prenez rendez-vous
-                  </Button>
+            <div className="max-w-7xl mx-auto px-4 py-5 space-y-3">
+              {navItems.map((item) => (
+                <div key={item.name}>
+                  {item.isAnchor ? (
+                    <button
+                      onClick={() => handleLinkClick(item.href, true)}
+                      className="w-full text-left py-2 text-sm font-montserrat uppercase tracking-wider text-[#16181D] hover:text-[#2449D8] transition-colors font-medium"
+                    >
+                      {item.name}
+                    </button>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className="block py-2 text-sm font-montserrat uppercase tracking-wider text-[#16181D] hover:text-[#2449D8] transition-colors font-medium"
+                    >
+                      {item.name}
+                    </Link>
+                  )}
                 </div>
+              ))}
+
+              <div className="pt-3 border-t border-[#E2E4DE]">
+                <button
+                  onClick={handleContactClick}
+                  className="w-full py-2.5 rounded-full bg-[#16181D] text-white text-xs font-montserrat uppercase tracking-wider font-semibold text-center flex items-center justify-center gap-2"
+                >
+                  <span>Réserver un appel ↗</span>
+                </button>
               </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
       <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
-    </nav>
+    </header>
   )
-} 
+}

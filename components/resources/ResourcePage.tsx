@@ -11,6 +11,7 @@ import { TbMessage2Filled } from "react-icons/tb";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { useAuthSession } from "@/hooks/useSessionStatut"
 import { AuthModal } from "../auth/AuthModal"
+import { CtaSection } from "../common/CtaSection"
 
 type Resource = {
     id: string
@@ -289,6 +290,17 @@ export default function ResourcesPage() {
                     </motion.div>
                 </AnimatePresence>
             </div>
+
+            {/* Section CTA vers le contact */}
+            <CtaSection
+                titleLine1="Un projet web ou SaaS ?"
+                titleLine2italic="Construisons-le ensemble."
+                descLine1="De la conception au déploiement en production,"
+                descLine2="bâtissons une application pensée pour durer."
+                buttonText="Réserver un appel"
+                buttonHref="/#contact"
+            />
+
             <AuthModal 
                 isOpen={isAuthModalOpen} 
                 onClose={() => {
