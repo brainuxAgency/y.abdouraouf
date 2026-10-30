@@ -33,18 +33,18 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <main className="min-h-screen bg-[#0a0c10] text-white">
       {/* En-tête de l'article */}
-      <header className="mx-auto max-w-6xl px-5 pb-12 pt-32 sm:px-8">
-        <Link
-          href="/blog"
-          className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-zinc-500 transition-colors hover:text-white"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" aria-hidden />
-          Blog
-        </Link>
+      <header className="mx-auto max-w-7xl px-5 pb-12 pt-32 sm:px-8">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-zinc-500 transition-colors hover:text-white"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" aria-hidden />
+            Blog
+          </Link>
 
-        <div className="mt-10 max-w-3xl">
           {post.tags.length > 0 && (
-            <div className="mb-6 flex flex-wrap gap-2">
+            <div className="flex flex-wrap items-center justify-end gap-2">
               {post.tags.map((tag) => (
                 <Link
                   key={tag}
@@ -56,6 +56,9 @@ export default async function BlogPostPage({ params }: Props) {
               ))}
             </div>
           )}
+        </div>
+
+        <div className="mt-10 w-full md:w-4/5">
           <h1 className="font-montserrat text-4xl font-semibold leading-[1.08] tracking-tight sm:text-6xl">
             {post.title}
           </h1>
@@ -69,7 +72,7 @@ export default async function BlogPostPage({ params }: Props) {
         </div>
       </header>
 
-      <div className="mx-auto max-w-6xl px-5 pb-24 sm:px-8">
+      <div className="mx-auto max-w-7xl px-5 pb-24 sm:px-8">
         {/* Sommaire mobile : repliable au-dessus de l'article */}
         {toc.length > 0 && (
           <details className="mb-10 rounded-2xl border border-white/10 bg-[#0f1013] p-5 lg:hidden">

@@ -21,7 +21,7 @@ export default async function BlogPage({ searchParams }: Props) {
 
   return (
     <main className="min-h-screen bg-[#0a0c10] text-white">
-      <div className="mx-auto max-w-5xl px-5 pb-24 pt-32 sm:px-8">
+      <div className="mx-auto max-w-7xl px-5 pb-24 pt-32 sm:px-8">
         <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.2em] text-orange-400">Blog</span>
         <h1 className="font-montserrat text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
           Notes de terrain{" "}
