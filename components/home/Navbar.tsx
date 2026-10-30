@@ -14,6 +14,7 @@ const navItems = [
   { name: "Offre", href: "#services", isAnchor: true },
   { name: "Méthode", href: "#method", isAnchor: true },
   { name: "À propos", href: "/about", isAnchor: false },
+  {name:"Blog", href:"/blog", isAnchor:false},
   { name: "Ressources", href: "/ressources", isAnchor: false },
 ]
 
