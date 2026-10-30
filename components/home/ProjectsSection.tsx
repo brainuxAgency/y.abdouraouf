@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronUp, ChevronDown, ChevronRight, ExternalLink, Check } from "lucide-react"
+import { CalButton } from "../common/CalButton"
 
 interface ShowcaseProject {
   id: string
@@ -189,10 +190,7 @@ export function ProjectsSection() {
                 <span className="text-xs font-mono text-zinc-500">
                   {currentIndex + 1}&nbsp;/&nbsp;{showcaseList.length} projets
                 </span>
-                <Link
-                  href="#contact"
-                  className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-medium text-white bg-orange-800 hover:bg-orange-700 transition-colors shadow-sm cursor-pointer"
-                >
+                <CalButton className="btn-cta-gold group inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-medium cursor-pointer">
                   <span>Réserver un appel</span>
                   <span className="pulsor-btn-arrow text-xs">
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -214,7 +212,7 @@ export function ProjectsSection() {
                       />
                     </svg>
                   </span>
-                </Link>
+                </CalButton>
               </div>
             </div>
           </div>
@@ -292,7 +290,7 @@ export function ProjectsSection() {
                           onClick={() => setCurrentScreenIndex(idx)}
                           className={`relative w-14 h-9 rounded-md overflow-hidden border transition-all shrink-0 cursor-pointer ${
                             currentScreenIndex === idx
-                              ? "border-orange-500 ring-1 ring-orange-500/60"
+                              ? "border-primary ring-1 ring-primary/60"
                               : "border-white/20 opacity-60 hover:opacity-100"
                           }`}
                         >
@@ -350,7 +348,7 @@ export function ProjectsSection() {
                           key={tIdx}
                           className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-montserrat font-medium text-zinc-400 border border-white/10"
                         >
-                          <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                           <span>{tag.label}</span>
                         </span>
                       ))}
@@ -366,7 +364,7 @@ export function ProjectsSection() {
 
                     {/* Note d'attribution */}
                     {project.attributionNote && (
-                      <div className="p-3 bg-white/5 border-l-2 border-orange-700 text-xs font-montserrat text-zinc-400">
+                      <div className="p-3 bg-white/5 border-l-2 border-primary text-xs font-montserrat text-zinc-400">
                         <strong>Note d&apos;attribution :</strong> {project.attributionNote}
                       </div>
                     )}
@@ -375,7 +373,7 @@ export function ProjectsSection() {
                     <div className="space-y-2 pt-1 text-xs text-zinc-400">
                       {project.contribution.map((item, cIdx) => (
                         <div key={cIdx} className="flex items-start gap-2">
-                          <Check className="w-3.5 h-3.5 text-orange-400 shrink-0 mt-0.5" />
+                          <Check className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
                           <span>{item}</span>
                         </div>
                       ))}
@@ -457,7 +455,7 @@ export function ProjectsSection() {
                 <div className="flex items-center gap-2 mb-1">
                   <span
                     className={`w-1.5 h-1.5 rounded-full transition-colors ${
-                      currentIndex === i ? "bg-orange-600" : "bg-white/20 group-hover:bg-white/40"
+                      currentIndex === i ? "bg-primary" : "bg-white/20 group-hover:bg-white/40"
                     }`}
                   />
                   <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">

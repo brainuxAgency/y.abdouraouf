@@ -112,20 +112,20 @@ export default function ContactForm() {
           WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, transparent 35%, #000 100%)",
         }}
       />
-      <div className="pointer-events-none absolute left-1/2 top-0 h-[380px] w-[680px] -translate-x-1/2 rounded-full bg-orange-600/10 blur-[120px]" />
+      <div className="pointer-events-none absolute left-1/2 top-0 h-[380px] w-[680px] -translate-x-1/2 rounded-full bg-primary-dark/15 blur-[120px]" />
 
       <div className="relative z-10">
         <Frame>
           {/* ============ EN-TÊTE : titre à gauche, mesures à droite ============ */}
           <div className="grid gap-10 p-2 md:p-5 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-7">
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-orange-300">
-                <span className="h-1.5 w-1.5 bg-orange-500" />
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-primary-light">
+                <span className="h-1.5 w-1.5 bg-primary" />
                 05 // contact.init()
               </div>
               <h2 className="font-montserrat text-4xl font-bold leading-[1.04] tracking-tight text-white sm:text-6xl">
                 Discutons concrètement
-                <span className="block bg-gradient-to-r from-orange-300 via-orange-400 to-orange-600 bg-clip-text text-transparent">
+                <span className="block bg-gradient-to-r from-primary-light via-primary to-primary-dark bg-clip-text text-transparent">
                   de votre projet.
                 </span>
               </h2>
@@ -156,7 +156,7 @@ export default function ContactForm() {
                 {CALL_OFFERINGS.map((item) => (
                   <div key={item.step}>
                     <div className="mb-3 flex items-center gap-3">
-                      <span className="font-mono text-xs font-semibold text-orange-400">{item.step}</span>
+                      <span className="font-mono text-xs font-semibold text-primary">{item.step}</span>
                       <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">{item.badge}</span>
                     </div>
                     <h4 className="font-montserrat text-sm font-bold text-white">{item.title}</h4>
@@ -172,7 +172,7 @@ export default function ContactForm() {
                 <div className="flex items-center justify-between gap-2 rounded-xl bg-white/[0.03] py-2 pl-4 pr-2">
                   <a
                     href={`mailto:${EMAIL}`}
-                    className="truncate font-mono text-xs text-zinc-200 transition-colors hover:text-orange-300"
+                    className="truncate font-mono text-xs text-zinc-200 transition-colors hover:text-primary-light"
                   >
                     {EMAIL}
                   </a>
@@ -192,10 +192,10 @@ export default function ContactForm() {
             {/* ---------- DROITE : réservation ---------- */}
             <div className="relative flex flex-col overflow-hidden rounded-3xl bg-[#07080c] p-2 md:p-5 lg:col-span-7">
               {/* Halo orange derrière le bouton */}
-              <div className="pointer-events-none absolute -bottom-10 left-1/2 h-48 w-[520px] -translate-x-1/2 rounded-full bg-orange-600/15 blur-[90px]" />
+              <div className="pointer-events-none absolute -bottom-10 left-1/2 h-48 w-[520px] -translate-x-1/2 rounded-full bg-primary-dark/20 blur-[90px]" />
 
               <div className="relative flex items-center justify-between gap-4">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-orange-400">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-primary">
                   Réservation directe
                 </span>
                 <span className="flex items-center gap-1.5 font-mono text-[11px] text-emerald-400">
@@ -216,7 +216,7 @@ export default function ContactForm() {
                 {BOOKING_STEPS.map(({ icon: Icon, title, desc }, i) => (
                   <li key={title} className="rounded-2xl bg-white/[0.03] p-2 md:p-5">
                     <div className="mb-4 flex items-center justify-between">
-                      <Icon className="h-5 w-5 text-orange-400" />
+                      <Icon className="h-5 w-5 text-primary" />
                       <span className="font-mono text-[10px] text-zinc-600">0{i + 1}</span>
                     </div>
                     <span className="block font-montserrat text-sm font-bold text-white">{title}</span>
@@ -226,10 +226,10 @@ export default function ContactForm() {
               </ol>
 
               <div className="relative mt-auto border-t border-white/15 pt-10">
-                <CalButton className="group flex w-full cursor-pointer items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-[#c2410c] via-[#ea580c] to-[#c2410c] px-6 py-4 font-mono text-xs font-semibold uppercase tracking-widest text-white shadow-[0_0_30px_rgba(234,88,12,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_40px_rgba(234,88,12,0.35)] active:scale-[0.99]">
-                  <Calendar className="h-4 w-4 transition-transform group-hover:scale-110" />
+                <CalButton className="btn-cta-gold group flex w-full cursor-pointer items-center justify-center gap-3 rounded-xl px-6 py-4 font-mono text-xs font-semibold uppercase tracking-widest text-[#23190A] transition-all duration-300">
+                  <Calendar className="h-4 w-4 text-[#23190A] transition-transform group-hover:scale-110" />
                   <span>Choisir une date &amp; heure</span>
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="h-4 w-4 text-[#23190A] transition-transform group-hover:translate-x-1" />
                 </CalButton>
 
                 <p className="mt-4 text-center font-mono text-[11px] text-zinc-500">

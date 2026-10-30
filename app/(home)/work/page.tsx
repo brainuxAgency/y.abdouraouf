@@ -15,7 +15,7 @@ export default function WorkPage() {
       {/* Texture de fond signature avec masque radial */}
       <div className="pointer-events-none absolute inset-0 bg-pulsor-dots bg-pulsor-dots-fade opacity-85 [background-image:radial-gradient(rgba(255,255,255,0.08)_1.2px,transparent_1.2px)]" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 sm:pb-28">
+      <div className="relative z-10 max-w-7xl mx-auto px-2 md:px-5 pb-20 sm:pb-28">
         
         {/* En-tête centré monumental (Inspiré de l'image de référence) */}
         <header className="max-w-4xl mx-auto text-center mb-12 sm:mb-16">

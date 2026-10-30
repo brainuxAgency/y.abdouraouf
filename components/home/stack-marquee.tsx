@@ -1,78 +1,90 @@
-import type { ComponentType } from "react"
-import { KeyRound, Orbit } from "lucide-react"
+
+"use client"
+
+import { motion } from "framer-motion"
 import {
-  SiNextdotjs,
-  SiReact,
-  SiTypescript,
-  SiPrisma,
-  SiPostgresql,
-  SiVercel,
-  SiCloudflare,
-  SiClaude, // react-icons >= 5.4 ; sinon remplacez par une icône lucide (ex. Sparkles)
-  SiTailwindcss,
-  SiNodedotjs,
-  SiZod,
-} from "react-icons/si"
+  Code2,
+  Database,
+  Globe,
+  Smartphone,
+  Server,
+  Wind,
+  Layers3,
+  GitBranch,
+} from "lucide-react"
 
-type Item = { name: string; icon: ComponentType<{ className?: string }>; color: string }
-
-const items: Item[] = [
-  { name: "Next.js", icon: SiNextdotjs, color: "text-white" },
-  { name: "React", icon: SiReact, color: "text-[#61DAFB]" },
-  { name: "TypeScript", icon: SiTypescript, color: "text-[#3178C6]" },
-  { name: "Prisma", icon: SiPrisma, color: "text-zinc-200" },
-  { name: "PostgreSQL", icon: SiPostgresql, color: "text-[#6B8CE8]" },
-  { name: "Vercel", icon: SiVercel, color: "text-white" },
-  { name: "Cloudflare", icon: SiCloudflare, color: "text-[#F6821F]" },
-  { name: "Better Auth", icon: KeyRound, color: "text-zinc-200" }, // pas d'icône officielle dans react-icons
-  { name: "Claude", icon: SiClaude, color: "text-[#D97757]" },
-  { name: "Antigravity", icon: Orbit, color: "text-[#7AA2FF]" }, // pas d'icône officielle dans react-icons
-  { name: "Tailwind CSS", icon: SiTailwindcss, color: "text-[#38BDF8]" },
-  { name: "Node.js", icon: SiNodedotjs, color: "text-[#5FA04E]" },
-  { name: "Zod", icon: SiZod, color: "text-[#6C8EEF]" },
+const technologies = [
+  { name: "React", icon: Code2 },
+  { name: "Next.js", icon: Globe },
+  { name: "TypeScript", icon: Code2 },
+  { name: "React Native", icon: Smartphone },
+  { name: "Node.js", icon: Server },
+  { name: "PostgreSQL", icon: Database },
+  { name: "Tailwind CSS", icon: Wind },
+  { name: "NestJS", icon: Layers3 },
+  { name: "Git", icon: GitBranch },
 ]
-
-const fade = "linear-gradient(to right, transparent, #000 10%, #000 90%, transparent)"
 
 export function StackMarquee() {
   return (
-    <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20">
-      <p className="mb-6 text-center font-montserrat text-xs text-zinc-500">
-        Les outils avec lesquels je construis
-      </p>
+    <div className="relative  overflow-hidden py-3">
+      {/* Fade edges */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[#0a0c10] to-transparent sm:w-24" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[#0a0c10] to-transparent sm:w-24" />
 
-      <div
-        className="stack-marquee relative overflow-hidden"
-        style={{ maskImage: fade, WebkitMaskImage: fade }}
-      >
-        <ul className="stack-track flex w-max items-center">
-          {[...items, ...items].map((item, i) => (
-            <li
-              key={`${item.name}-${i}`}
-              aria-hidden={i >= items.length}
-              className="pr-3"
-            >
-              <div className="flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 px-4 py-2.5">
-                <item.icon className={`h-4 w-4 shrink-0 ${item.color}`} />
-                <span className="whitespace-nowrap font-montserrat text-xs font-medium text-zinc-200">
-                  {item.name}
-                </span>
-              </div>
-            </li>
-          ))}
-        </ul>
+      {/* Label */}
+      <div className="mb-5 flex items-center justify-between gap-4">
+        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+          Stack technique
+        </span>
+
+        <span className="flex items-center gap-2 text-[10px] text-zinc-500">
+          <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+          Technologies utilisées
+        </span>
       </div>
 
-      <style>{`
-        @keyframes stack-scroll {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
+      {/* Infinite marquee */}
+      <div className="group flex overflow-hidden">
+        <motion.div
+          className="flex w-max shrink-0 items-center gap-3 pr-3"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{
+            duration: 30,
+            ease: "linear",
+            repeat: Infinity,
+          }}
+        >
+          {[...technologies, ...technologies].map((tech, index) => {
+            const Icon = tech.icon
+
+            return (
+              <div
+                key={`${tech.name}-${index}`}
+                className="group/item flex shrink-0 items-center gap-2.5 rounded-full border border-white/[0.09] bg-white/[0.025] px-4 py-3 transition-all duration-300 hover:border-primary/30 hover:bg-primary/[0.06]"
+              >
+                <Icon className="h-4 w-4 text-zinc-500 transition-colors group-hover/item:text-primary" />
+
+                <span className="text-xs font-medium text-zinc-300 transition-colors group-hover/item:text-white">
+                  {tech.name}
+                </span>
+
+                <span className="h-1 w-1 rounded-full bg-primary/40" />
+              </div>
+            )
+          })}
+        </motion.div>
+      </div>
+
+      <style jsx>{`
+        .group:hover > div {
+          animation-play-state: paused;
         }
-        .stack-track { animation: stack-scroll 45s linear infinite; }
-        .stack-marquee:hover .stack-track { animation-play-state: paused; }
+
         @media (prefers-reduced-motion: reduce) {
-          .stack-track { animation: none; }
-          .stack-marquee { overflow-x: auto; }
+          .group {
+            scroll-behavior: auto;
+          }
         }
       `}</style>
     </div>

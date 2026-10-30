@@ -1,8 +1,6 @@
-import Footer from "@/components/home/Footer"
 import { Navbar } from "@/components/home/Navbar"
-
-
-
+import Footer from "@/components/home/Footer"
+import { IntroLoader } from "@/components/intro/IntroLoader"
 
 export default function RootLayout({
   children,
@@ -10,13 +8,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <div className="w-full flex flex-col min-h-screen bg-[#0a0c10] text-white">
-      <Navbar />
-      {/* <VisitorTracker /> */}
+    <IntroLoader>
+      <div className="w-full flex flex-col min-h-screen bg-[#0a0c10] text-white">
+        <Navbar />
+        {/* <VisitorTracker /> */}
 
-      {children}
-      <Footer />
-    </div>
-
+        {children}
+        <Footer />
+      </div>
+    </IntroLoader>
   )
 }

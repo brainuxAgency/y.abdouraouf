@@ -39,6 +39,7 @@ Typography:
 - The main headline should be large, compact and confident, but not oversized to the point of being a gimmick.
 
 Layout:
+- Règle stricte de padding responsive : `p-2` sur mobile et `md:p-5` sur desktop (`p-2 md:p-5` ou `px-2 md:px-5`) dans TOUS les composants pour éviter tout débordement.
 - Content should mostly align to a consistent left edge.
 - Build a clear page grid, with carefully chosen negative space and occasional asymmetry.
 - Avoid equal-width repeated cards. Let the lead project occupy more space; present supporting projects with different proportions where the content justifies it.

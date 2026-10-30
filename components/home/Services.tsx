@@ -7,10 +7,10 @@ const tagClass =
   "rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 font-mono text-[10px] text-zinc-300"
 
 const cardClass =
-  "group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-[#0f1013] p-6 transition-all duration-300 hover:border-white/20 sm:p-8"
+  "group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-[#0f1013] p-2 md:p-5 transition-all duration-300 hover:border-white/20"
 
 const glowClass =
-  "pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-orange-600/0 blur-3xl transition-colors duration-500 group-hover:bg-orange-600/15"
+  "pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-primary-dark/0 blur-3xl transition-colors duration-500 group-hover:bg-primary-dark/15"
 
 const mockupClass =
   "relative mb-7 select-none overflow-hidden rounded-2xl border border-white/10 bg-[#0a0c10] shadow-inner shadow-black/60"
@@ -31,7 +31,7 @@ function WindowBar({ url }: { url: string }) {
 function CardHeader({ icon: Icon, title }: { icon: typeof Layers; title: string }) {
   return (
     <div className="mb-3 flex items-center gap-3">
-      <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/[0.05] text-orange-300">
+      <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/[0.05] text-primary-light">
         <Icon className="h-4 w-4" aria-hidden />
       </span>
       <h3 className="font-montserrat text-xl font-semibold tracking-tight text-white">{title}</h3>
@@ -48,11 +48,11 @@ export function Services() {
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_30%,#000,transparent)]"
       />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-2 md:px-5">
         {/* En-tête */}
         <div className="mb-14 flex flex-col justify-between gap-8 border-b border-white/10 pb-12 md:flex-row md:items-end">
           <div className="max-w-2xl">
-            <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.2em] text-orange-400">
+            <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.2em] text-primary">
               02 // Ce que je livre
             </span>
             <h2 className="font-montserrat text-3xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl">
@@ -63,10 +63,10 @@ export function Services() {
 
           <Link
             href="#contact"
-            className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-orange-800 px-6 py-3 font-montserrat text-sm font-semibold text-white shadow-lg shadow-orange-950/40 transition-colors duration-200 hover:bg-orange-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0c10]"
+            className="btn-cta-gold group inline-flex shrink-0 items-center gap-2 rounded-full px-6 py-3 font-montserrat text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5CD79] cursor-pointer"
           >
             Planifier un échange
-            <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ArrowUpRight className="h-4 w-4 text-[#23190A] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
         </div>
 
@@ -146,7 +146,7 @@ export function Services() {
               <div className="space-y-2 p-4">
                 {[
                   ["Devis #2026-88", "14 200 €", "Signé", "text-emerald-300 border-emerald-500/30 bg-emerald-500/10"],
-                  ["Devis #2026-89", "6 750 €", "En attente", "text-orange-300 border-orange-500/30 bg-orange-500/10"],
+                  ["Devis #2026-89", "6 750 €", "En attente", "text-primary-light border-orange-500/30 bg-orange-500/10"],
                   ["Devis #2026-90", "3 100 €", "Brouillon", "text-zinc-400 border-white/10 bg-white/[0.04]"],
                 ].map(([ref, amount, status, pill]) => (
                   <div
@@ -236,7 +236,7 @@ export function Services() {
                         kind === "done"
                           ? "border-emerald-500/40 bg-emerald-500/15 text-emerald-300"
                           : kind === "active"
-                            ? "border-orange-400/50 bg-orange-500/15 text-orange-300"
+                            ? "border-orange-400/50 bg-orange-500/15 text-primary-light"
                             : "border-white/10 bg-white/[0.04] text-zinc-500"
                       }`}
                     >
