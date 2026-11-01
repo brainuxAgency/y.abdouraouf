@@ -6,6 +6,7 @@ import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronUp, ChevronDown, ChevronRight, ExternalLink, Check } from "lucide-react"
 import { CalButton } from "../common/CalButton"
+import { Button } from "../ui/button"
 
 interface ShowcaseProject {
   id: string
@@ -21,6 +22,7 @@ interface ShowcaseProject {
   status: string
   isWip?: boolean
   attributionNote?: string
+  logo?: string
 }
 
 const showcaseList: ShowcaseProject[] = [
@@ -47,6 +49,7 @@ const showcaseList: ShowcaseProject[] = [
     liveUrl: "https://ripostera.vercel.app/",
     status: "En cours de développement",
     isWip: true,
+    logo: "/projects/ripostera-logo.png",
   },
   {
     id: "crm-hmrenov26",
@@ -160,7 +163,7 @@ export function ProjectsSection() {
 
   return (
     <section id="projects" className="py-24  bg-gradient-to-b from-[#0a0c10] to-[#090b0f] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-2 sm:px-5">
 
         {/* ── Wrapper blueprint : bordures latérales identiques au footer ── */}
         <div className="relative border-x border-white/10">
@@ -181,7 +184,7 @@ export function ProjectsSection() {
             </div>
 
             {/* Col droite : accroche + CTA */}
-            <div className="p-2 md:p-5 flex flex-col justify-between gap-6 relative">
+            <div className="p-2 md:p-5 flex flex-col justify-between gap-2 md:gap-5 relative">
               <Plus className="-top-[5.5px] left-1/2 -translate-x-1/2 hidden md:block" />
               <p className="text-sm text-zinc-400 leading-relaxed max-w-xs">
                 Des applications web conçues pour résoudre des problèmes métier réels — pas des maquettes de présentation.
@@ -285,7 +288,7 @@ export function ProjectsSection() {
                   {project.images.length > 1 && (
                     <div className="mt-3 flex items-center gap-2 overflow-x-auto pb-1">
                       {project.images.map((img, idx) => (
-                        <button
+                        <Button
                           key={img}
                           onClick={() => setCurrentScreenIndex(idx)}
                           className={`relative w-14 h-9 rounded-md overflow-hidden border transition-all shrink-0 cursor-pointer ${
@@ -295,7 +298,7 @@ export function ProjectsSection() {
                           }`}
                         >
                           <Image src={img} alt="Miniature" fill className="object-cover" />
-                        </button>
+                        </Button>
                       ))}
                     </div>
                   )}
@@ -333,8 +336,18 @@ export function ProjectsSection() {
                   >
                     {/* Logo & Titre */}
                     <div className="flex items-center gap-3.5">
-                      <div className="w-10 h-10 rounded-[10px] border border-white/15 bg-white/10 text-white flex items-center justify-center font-montserrat font-bold text-sm tracking-wider shrink-0">
-                        {project.title.slice(0, 2).toUpperCase()}
+                      <div className="w-8 h-8 rounded-[10px] border border-white/15 bg-white/10 text-white flex items-center justify-center font-montserrat font-bold text-sm tracking-wider shrink-0 overflow-hidden relative">
+                        {project.logo ? (
+                          <Image
+                            src={project.logo}
+                            alt={project.title}
+                            width={26}
+                            height={26}
+                            className="object-contain"
+                          />
+                        ) : (
+                          project.title.slice(0, 2).toUpperCase()
+                        )}
                       </div>
                       <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-montserrat">
                         {project.title}
@@ -401,7 +414,7 @@ export function ProjectsSection() {
                         <ChevronRight className="w-3.5 h-3.5" />
                       </Link>
                       {project.liveUrl && (
-                        <a
+                        <Link
                           href={project.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -409,7 +422,7 @@ export function ProjectsSection() {
                         >
                           <span>Website live</span>
                           <ExternalLink className="w-3 h-3" />
-                        </a>
+                        </Link>
                       )}
                     </div>
                   </motion.div>

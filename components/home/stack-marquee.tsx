@@ -1,33 +1,12 @@
-
 "use client"
 
+import { stack } from "@/app/(home)/about/page"
 import { motion } from "framer-motion"
-import {
-  Code2,
-  Database,
-  Globe,
-  Smartphone,
-  Server,
-  Wind,
-  Layers3,
-  GitBranch,
-} from "lucide-react"
-
-const technologies = [
-  { name: "React", icon: Code2 },
-  { name: "Next.js", icon: Globe },
-  { name: "TypeScript", icon: Code2 },
-  { name: "React Native", icon: Smartphone },
-  { name: "Node.js", icon: Server },
-  { name: "PostgreSQL", icon: Database },
-  { name: "Tailwind CSS", icon: Wind },
-  { name: "NestJS", icon: Layers3 },
-  { name: "Git", icon: GitBranch },
-]
+import Image from "next/image"
 
 export function StackMarquee() {
   return (
-    <div className="relative  overflow-hidden py-3">
+    <div className="relative overflow-hidden py-3">
       {/* Fade edges */}
       <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[#0a0c10] to-transparent sm:w-24" />
       <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[#0a0c10] to-transparent sm:w-24" />
@@ -55,15 +34,25 @@ export function StackMarquee() {
             repeat: Infinity,
           }}
         >
-          {[...technologies, ...technologies].map((tech, index) => {
-            const Icon = tech.icon
-
+          {[...stack, ...stack].map((tech, index) => {
             return (
               <div
                 key={`${tech.name}-${index}`}
-                className="group/item flex shrink-0 items-center gap-2.5 rounded-full border border-white/[0.09] bg-white/[0.025] px-4 py-3 transition-all duration-300 hover:border-primary/30 hover:bg-primary/[0.06]"
+                className="group/item flex shrink-0 items-center gap-2.5 rounded-full border border-white/[0.09] bg-white/[0.025] px-4 py-2.5 transition-all duration-300 hover:border-primary/30 hover:bg-primary/[0.06]"
               >
-                <Icon className="h-4 w-4 text-zinc-500 transition-colors group-hover/item:text-primary" />
+                <span className="relative flex h-4 w-4 shrink-0 items-center justify-center">
+                  {tech.Icon ? (
+                    <tech.Icon className="h-4 w-4 text-zinc-400 transition-colors group-hover/item:text-primary" />
+                  ) : tech.icon ? (
+                    <Image
+                      src={tech.icon}
+                      alt={tech.name}
+                      width={16}
+                      height={16}
+                      className="h-4 w-4 object-contain"
+                    />
+                  ) : null}
+                </span>
 
                 <span className="text-xs font-medium text-zinc-300 transition-colors group-hover/item:text-white">
                   {tech.name}

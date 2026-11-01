@@ -119,7 +119,7 @@ export default function OffrePage() {
           id={offer.id}
           className="scroll-mt-28 border-t border-white/10 py-20 sm:py-28"
         >
-          <div className="mx-auto grid max-w-6xl gap-12 px-5 sm:px-8 lg:grid-cols-12">
+          <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-12">
             <div className={`lg:col-span-5 ${i % 2 === 1 ? "lg:order-2" : ""}`}>
               <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-orange-400">{offer.number}</span>
               <h2 className="mt-4 font-montserrat text-3xl font-semibold leading-[1.1] tracking-tight sm:text-4xl">
@@ -173,7 +173,7 @@ export default function OffrePage() {
 
       {/* Parcours */}
       <section className="border-t border-white/10 py-20 sm:py-28">
-        <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-orange-400">Le parcours</span>
           <h2 className="mt-4 max-w-3xl font-montserrat text-3xl font-semibold tracking-tight sm:text-5xl">
             Du premier échange à la livraison.

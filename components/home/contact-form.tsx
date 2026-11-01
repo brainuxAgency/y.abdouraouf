@@ -4,8 +4,9 @@ import { useState, type ReactNode } from "react"
 import { Copy, Check, Calendar, CalendarCheck, Link2, MessagesSquare, ArrowRight } from "lucide-react"
 import { CalButton } from "@/components/common/CalButton"
 import { CAL_LINK } from "@/hooks/use-cal"
+import { personalData } from "@/src/constants/social-icons"
 
-const EMAIL = "youssouf.abdouraouf4@gmail.com"
+const EMAIL = personalData.email
 
 const CALL_OFFERINGS = [
   {
@@ -212,9 +213,9 @@ export default function ContactForm() {
                 instantanément pour cadrer votre projet sans perdre de temps.
               </p>
 
-              <ol className="relative mt-10 grid gap-4 sm:grid-cols-3">
+              <ol className="relative mt-10 grid gap-4 sm:grid-cols-2">
                 {BOOKING_STEPS.map(({ icon: Icon, title, desc }, i) => (
-                  <li key={title} className="rounded-2xl bg-white/[0.03] p-2 md:p-5">
+                  <li key={title} className={`rounded-2xl bg-white/[0.03] p-2 md:p-5 ${i === 2 ? "sm:col-span-2" : ""}`}>
                     <div className="mb-4 flex items-center justify-between">
                       <Icon className="h-5 w-5 text-primary" />
                       <span className="font-mono text-[10px] text-zinc-600">0{i + 1}</span>

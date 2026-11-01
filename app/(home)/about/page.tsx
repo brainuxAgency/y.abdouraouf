@@ -4,7 +4,8 @@ import { useState, type ComponentType, type ReactNode } from "react"
 import Image from "next/image"
 import { motion } from "framer-motion"
 import { ArrowUpRight, MessageCircle, Share2, TrendingUp } from "lucide-react"
-import { SiCloudflare } from "react-icons/si"
+import { SiCloudflare, SiReactquery, SiDocker } from "react-icons/si"
+import { Zap } from "lucide-react"
 import { socialLinks } from "@/src/constants/social-icons"
 import { CalButton } from "@/components/common/CalButton"
 import { CTAButton } from "@/components/common/CTAButton"
@@ -24,7 +25,6 @@ const IMAGES = {
   ripostSales: "/about/ripostera-ventes.png",
 }
 
-const WAITLIST_HREF = "#contact"
 const RIPOSTERA_URL = process.env.NEXT_PUBLIC_RIPOSTERA_URL ?? "https://ripostera.vercel.app/"
 const RIPOSTERA_REGISTER_URL = new URL("/auth/register", RIPOSTERA_URL).toString()
 
@@ -35,24 +35,27 @@ type StackItem = {
   Icon?: ComponentType<{ className?: string }>
 }
 
-const stack: StackItem[] = [
+export const stack: StackItem[] = [
   { name: "Next.js 14", role: "Full Stack & SSR", icon: "/next.svg" },
   { name: "React", role: "UI & State", icon: "/react.svg" },
   { name: "TypeScript", role: "Strict Type Safety", icon: "/typescript.svg" },
   { name: "Tailwind CSS", role: "Modern Styling", icon: "/tailwindcss.svg" },
   { name: "shadcn/ui", role: "Design System", icon: "/shadcn.svg" },
+  { name: "React Query", role: "Async State & Cache", icon: "/react-query.svg" },
+  { name: "Zustand", role: "Client State Manager", icon: "/zustand.svg" },
   { name: "NestJS", role: "Architecture API", icon: "/nestjs.png" },
   { name: "PostgreSQL", role: "BDD Relationnelle", icon: "/postgresql.svg" },
   { name: "Prisma ORM", role: "Type-Safe Client", icon: "/prisma.svg" },
   { name: "OpenAI API", role: "GPT-4o & LLMs", icon: "/openai.svg" },
-  { name: "Claude 3.5", role: "Raisonnement Avancé", icon: "/claude.svg" },
+  { name: "Claude Opus 5.5", role: "Raisonnement Avancé", icon: "/claude.svg" },
+  { name: "Inngest", role: "Event-Driven & Queues", Icon: Zap },
+  { name: "Docker", role: "Conteneurisation & Déploiement", Icon: SiDocker },
   { name: "n8n", role: "Workflows & Automation", icon: "/n8n.svg" },
   { name: "Cursor AI", role: "AI Dev Assistant", icon: "/cursor.svg" },
   { name: "Antigravity", role: "Agentic IDE", icon: "/antigravity.png" },
   { name: "Redis", role: "In-Memory Caching", icon: "/redis.svg" },
   { name: "Vercel", role: "Edge Platform", icon: "/vercel.svg" },
   { name: "Cloudflare R2", role: "Object Storage S3-compatible", Icon: SiCloudflare },
-  { name: "DeepSeek", role: "Open Weights LLM", icon: "/deepseek.svg" },
 ]
 
 const ripostaSteps = [
@@ -76,7 +79,7 @@ const ripostaSteps = [
 
 const stackSizes: Record<string, "lg" | "md" | "sm"> = {
   "Next.js 14": "lg",
-  "Claude 3.5": "lg",
+  "Claude Opus 5.5": "lg",
   React: "md",
   PostgreSQL: "md",
   "OpenAI API": "md",

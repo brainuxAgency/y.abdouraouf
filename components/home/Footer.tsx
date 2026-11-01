@@ -2,9 +2,9 @@
 
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
-import { socialLinks } from "@/src/constants/social-icons"
+import { footerSocialLinks, personalData } from "@/src/constants/social-icons"
 
-const EMAIL = "abdouraouf.dev@gmail.com"
+const EMAIL = personalData.email
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -28,9 +28,9 @@ export default function Footer() {
       <div className="relative z-10 max-w-7xl mx-auto border-x border-white/10">
         {/* Ligne 1 : Réseaux sociaux en grille de 4 colonnes */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-b border-white/10">
-          {socialLinks.map((item, index) => {
+          {footerSocialLinks.map((item, index) => {
             const Icon = item.icon
-            const isLast = index === socialLinks.length - 1
+            const isLast = index === footerSocialLinks.length - 1
             return (
               <a
                 key={item.name}
@@ -69,6 +69,11 @@ export default function Footer() {
               <li>
                 <Link href="/work" className="text-zinc-300 hover:text-white transition-colors block">
                   Réalisations
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="text-zinc-300 hover:text-white transition-colors block">
+                  Blog
                 </Link>
               </li>
               <li>
