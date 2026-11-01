@@ -134,7 +134,7 @@ export function Hero() {
           >
             <div className="flex items-center justify-between">
               <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">
-                whoami
+                Qui suis-je ?
               </span>
               <ArrowDownRight className="h-4 w-4 text-primary" />
             </div>

@@ -7,8 +7,17 @@ import {
   ArrowUpRight, 
   ExternalLink, 
   CheckCircle2, 
-  X
 } from "lucide-react"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Badge } from "@/components/ui/badge"
 import { PROJECTS, type Project } from "@/src/constants/projects"
 
 const FILTER_TABS = [
@@ -32,7 +41,7 @@ export function WorkGallery() {
   return (
     <div className="relative z-10">
       
-      {/* Barre de filtres en pilules (exactement comme le visuel de référence) */}
+      {/* Barre de filtres en pilules */}
       <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 max-w-4xl mx-auto mb-12 sm:mb-16">
         {FILTER_TABS.map((tab) => {
           const isActive = selectedFilter === tab.id
@@ -44,7 +53,7 @@ export function WorkGallery() {
             <button
               key={tab.id}
               onClick={() => setSelectedFilter(tab.id)}
-              className={`inline-flex items-center gap-2 px-4 py-2 sm:px-5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer ${
+              className={`inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer ${
                 isActive
                   ? "bg-primary text-primary-foreground shadow-[0_0_20px_hsl(var(--primary)/0.3)]"
                   : "bg-white/[0.04] hover:bg-white/[0.08] text-zinc-400 hover:text-white border border-white/10 shadow-xs"
@@ -61,10 +70,10 @@ export function WorkGallery() {
         })}
       </div>
 
-      {/* Grille de projets (Grid 3 colonnes inspirée du visuel) */}
+      {/* Grille de projets (Grid 3 colonnes) */}
       <motion.div 
         layout
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-5 max-w-7xl mx-auto"
       >
         <AnimatePresence mode="popLayout">
           {filteredProjects.map((project, index) => (
@@ -75,7 +84,7 @@ export function WorkGallery() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.3, delay: Math.min(index * 0.05, 0.25) }}
-              className="group relative flex flex-col bg-[#141416] border border-white/10 rounded-2xl sm:rounded-3xl p-3 sm:p-3.5 shadow-sm hover:shadow-[0_0_30px_hsl(var(--primary)/0.12)] hover:border-white/25 transition-all duration-300"
+              className="group relative flex flex-col bg-[#141416] border border-white/10 rounded-2xl sm:rounded-3xl p-2 md:p-4 shadow-sm hover:shadow-[0_0_30px_hsl(var(--primary)/0.12)] hover:border-white/25 transition-all duration-300"
             >
               {/* Conteneur Image format 16:10 */}
               <div 
@@ -114,7 +123,7 @@ export function WorkGallery() {
                 </div>
               </div>
 
-              {/* Zone inférieure : Titre / Catégorie à gauche, Bouton Visiter à droite (calqué sur l'image) */}
+              {/* Zone inférieure : Titre / Catégorie à gauche, Bouton Visiter à droite */}
               <div className="flex items-center justify-between gap-4 pt-4 pb-1 px-1.5 mt-auto">
                 <div className="min-w-0">
                   <h3 
@@ -142,7 +151,7 @@ export function WorkGallery() {
                   ) : (
                     <button
                       onClick={() => setActiveModalProject(project)}
-                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-semibold bg-white/10 text-white hover:bg-white hover:text-[#050608] transition-all duration-200 cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-1.5 md:px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-semibold bg-white/10 text-white hover:bg-white hover:text-[#050608] transition-all duration-200 cursor-pointer"
                     >
                       <span>Détails</span>
                     </button>
@@ -155,57 +164,39 @@ export function WorkGallery() {
         </AnimatePresence>
       </motion.div>
 
-      {/* Modal épuré pour explorer les détails d'un projet */}
-      <AnimatePresence>
+      {/* Modal shadcn/ui Dialog pour explorer les détails d'un projet */}
+      <Dialog
+        open={Boolean(activeModalProject)}
+        onOpenChange={(open) => {
+          if (!open) setActiveModalProject(null)
+        }}
+      >
         {activeModalProject && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-            {/* Backdrop sombre doux */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setActiveModalProject(null)}
-              className="fixed inset-0 bg-black/50 backdrop-blur-xs"
-            />
-
-            {/* Fenêtre modale architecturale */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96, y: 12 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.96, y: 12 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              className="relative w-full max-w-3xl bg-[#0f1013] border border-white/10 rounded-2xl sm:rounded-3xl shadow-xl overflow-hidden z-50 max-h-[90vh] flex flex-col my-auto"
-            >
-              {/* Header du modal */}
-              <div className="flex items-center justify-between p-5 sm:p-6 border-b border-white/10 bg-[#141416]">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-primary font-sans">
-                      {activeModalProject.categoryLabel}
-                    </span>
-                    <span className="text-zinc-700">·</span>
-                    <span className="text-xs text-zinc-500 font-medium">
-                      {activeModalProject.status}
-                    </span>
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-bold font-sans text-white mt-0.5">
-                    {activeModalProject.title}
-                  </h3>
-                </div>
-
-                <button
-                  onClick={() => setActiveModalProject(null)}
-                  className="p-2 rounded-full text-zinc-500 hover:text-white hover:bg-white/10 transition-colors"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+          <DialogContent className="max-w-3xl h-[85vh] max-h-[85vh] bg-[#0f1013] border border-white/10 text-white rounded-2xl sm:rounded-3xl p-0 overflow-hidden flex flex-col gap-0 shadow-2xl">
+            {/* Header du modal */}
+            <DialogHeader className="shrink-0 p-2 md:p-5 border-b border-white/10 bg-[#141416] text-left pr-12">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold uppercase tracking-wider text-primary font-sans">
+                  {activeModalProject.categoryLabel}
+                </span>
+                <span className="text-zinc-700">·</span>
+                <span className="text-xs text-zinc-500 font-medium">
+                  {activeModalProject.status}
+                </span>
               </div>
+              <DialogTitle className="text-xl sm:text-2xl font-bold font-sans text-white mt-1">
+                {activeModalProject.title}
+              </DialogTitle>
+              <DialogDescription className="sr-only">
+                {activeModalProject.subtitle} — {activeModalProject.description}
+              </DialogDescription>
+            </DialogHeader>
 
-              {/* Corps défilable */}
-              <div className="overflow-y-auto p-5 sm:p-6 space-y-6">
-                
+            {/* Corps défilable avec ScrollArea de shadcn */}
+            <ScrollArea className="flex-1 min-h-0 w-full">
+              <div className="p-2 md:p-5 space-y-4">
                 {/* Image principale */}
-                <div className="relative aspect-[16/10] w-full rounded-xl sm:rounded-2xl overflow-hidden bg-[#141416] border border-white/10">
+                <div className="relative aspect-[16/10] w-full rounded-xl sm:rounded-2xl overflow-hidden bg-[#141416] border border-white/10 shrink-0">
                   <Image
                     src={activeModalProject.images[0]}
                     alt={activeModalProject.title}
@@ -216,7 +207,7 @@ export function WorkGallery() {
 
                 {/* Attribution note si applicable */}
                 {activeModalProject.attributionNote && (
-                  <div className="p-3.5 bg-amber-50/80 border border-amber-200/70 rounded-xl text-xs text-amber-900 leading-relaxed">
+                  <div className="p-2 md:p-3 bg-amber-50/80 border border-amber-200/70 rounded-xl text-xs text-amber-900 leading-relaxed">
                     <strong>Note d&apos;attribution :</strong> {activeModalProject.attributionNote}
                   </div>
                 )}
@@ -253,48 +244,48 @@ export function WorkGallery() {
                   </h4>
                   <div className="flex flex-wrap gap-1.5">
                     {activeModalProject.stack.map((t) => (
-                      <span
+                      <Badge
                         key={t}
-                        className="px-2.5 py-1 rounded-md text-xs font-medium bg-white/5 text-zinc-200 border border-white/10"
+                        variant="outline"
+                        className="rounded-md text-xs font-medium bg-white/5 text-zinc-200 border-white/10 px-2.5 py-1"
                       >
                         {t}
-                      </span>
+                      </Badge>
                     ))}
                   </div>
                 </div>
-
               </div>
+            </ScrollArea>
 
-              {/* Footer du modal avec action principale */}
-              <div className="p-4 sm:p-5 border-t border-white/10 bg-[#141416] flex items-center justify-between gap-3">
-                <button
-                  onClick={() => setActiveModalProject(null)}
-                  className="px-4 py-2 rounded-full text-xs font-medium text-zinc-500 hover:text-white"
+            {/* Footer du modal */}
+            <DialogFooter className="shrink-0 p-2 md:p-5 border-t border-white/10 bg-[#141416] flex items-center justify-between sm:justify-between gap-3 flex-row">
+              <button
+                type="button"
+                onClick={() => setActiveModalProject(null)}
+                className="px-4 py-2 rounded-full text-xs font-medium text-zinc-400 hover:text-white transition-colors cursor-pointer"
+              >
+                Fermer
+              </button>
+
+              {activeModalProject.liveUrl && activeModalProject.liveUrl !== "#" ? (
+                <a
+                  href={activeModalProject.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-cta-gold inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold transition-colors shadow-sm"
                 >
-                  Fermer
-                </button>
-
-                {activeModalProject.liveUrl && activeModalProject.liveUrl !== "#" ? (
-                  <a
-                    href={activeModalProject.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-cta-gold inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold transition-colors shadow-sm"
-                  >
-                    <span>Ouvrir l&apos;application en direct</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                ) : (
-                  <span className="text-xs text-zinc-500 italic">
-                    Projet sous contrat ou en accès restreint
-                  </span>
-                )}
-              </div>
-
-            </motion.div>
-          </div>
+                  <span>Ouvrir l&apos;application en direct</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              ) : (
+                <span className="text-xs text-zinc-500 italic">
+                  Projet sous contrat ou en accès restreint
+                </span>
+              )}
+            </DialogFooter>
+          </DialogContent>
         )}
-      </AnimatePresence>
+      </Dialog>
 
     </div>
   )
