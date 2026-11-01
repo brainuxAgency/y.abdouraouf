@@ -19,9 +19,9 @@ const IMAGES = {
   mwBusiness: "/about/mw-business.jpg",
   creationVideo: "/about/creation-video.jpg",
   ripostApp: "/about/ripostera-app.png",
-  ripostDashboard: "/about/ripostera-planning.png",
-  ripostDm: "/about/ripostera-dm.png",
-  ripostSales: "/about/ripostera-ventes.png",
+  ripostDashboard: "/about/ripostera-automatisation.png",
+  ripostDm: "/about/ripostera-dashboard.png",
+  ripostSales: "/about/ripostera-inbox.png",
 }
 
 const WAITLIST_HREF = "#contact"
@@ -153,6 +153,7 @@ function Figure({
     </figure>
   )
 }
+
 
 function Chapter({
   index,
@@ -643,7 +644,7 @@ export default function AboutPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6 }}
-            className="mt-14 scroll-mt-28 rounded-3xl border border-white/10 bg-[#141416] p-6 shadow-2xl shadow-black/40 sm:p-10"
+            className="mt-14 scroll-mt-28 rounded-3xl border border-white/10 bg-[#141416] p-3 md:p-5 shadow-2xl shadow-black/40 sm:p-10"
           >
             <div className="flex flex-wrap items-center gap-3">
               <h3 className="font-montserrat text-2xl font-semibold tracking-tight text-white">Ripostera</h3>
@@ -655,7 +656,7 @@ export default function AboutPage() {
               L&apos;histoire d&apos;un produit, à l&apos;intérieur de la mienne.
             </p>
 
-            <ol className="mt-10 space-y-6 border-l border-white/15 pl-6 sm:pl-8">
+            <ol className="mt-10 space-y-3 md:space-y-5 border-l border-white/15 pl-6 sm:pl-8">
               {ripostaSteps.map((s, i) => (
                 <motion.li
                   key={s.t}

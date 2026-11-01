@@ -6,128 +6,9 @@ import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronUp, ChevronDown, ChevronRight, ExternalLink, Check } from "lucide-react"
 import { CalButton } from "../common/CalButton"
+import { PROJECTS } from "@/src/constants/projects"
 
-interface ShowcaseProject {
-  id: string
-  title: string
-  categoryBadge: string
-  tags: { label: string; icon?: string }[]
-  headline: string
-  description: string
-  contribution: string[]
-  stack: string[]
-  images: string[]
-  liveUrl?: string
-  status: string
-  isWip?: boolean
-  attributionNote?: string
-}
-
-const showcaseList: ShowcaseProject[] = [
-  {
-    id: "ripostera",
-    title: "Ripostera",
-    categoryBadge: "SaaS IA & Distribution",
-    tags: [
-      { label: "SaaS Produit (R&D)" },
-      { label: "Next.js 16" },
-      { label: "En développement" },
-    ],
-    headline:
-      "Plateforme SaaS tout-en-un de gestion, curation et multidiffusion intelligente de contenus sur les réseaux sociaux.",
-    description:
-      "Ripostera est mon propre produit logiciel en cours de développement. Il résout la friction majeure des créateurs et entreprises : automatiser la distribution de contenus vers de multiples canaux sans perdre en qualité ni en engagement.",
-    contribution: [
-      "Architecture App Router & Server Components haute performance",
-      "Modélisation de données PostgreSQL via Prisma (multi-comptes, files de publication)",
-      "Workflows automatisés et synchronisation d'assets",
-    ],
-    stack: ["Next.js", "TypeScript", "Prisma ORM", "PostgreSQL", "Tailwind CSS"],
-    images: ["/about/ripostera-app.png"],
-    liveUrl: "https://ripostera.vercel.app/",
-    status: "En cours de développement",
-    isWip: true,
-  },
-  {
-    id: "crm-hmrenov26",
-    title: "CRM-HMRENOV26",
-    categoryBadge: "ERP & CRM Métier",
-    tags: [
-      { label: "Outil Métier Sur Mesure" },
-      { label: "Zustand & PostgreSQL" },
-      { label: "En exploitation" },
-    ],
-    headline:
-      "Système de gestion complet pour entreprise du bâtiment : devis en 1 clic, planning de chantier et facturation centralisée.",
-    description:
-      "Remplacement intégral de classeurs Excel partagés chaotiques par une application métier sur mesure. L'outil élimine les erreurs de calcul de devis, synchronise les équipes sur le terrain et donne une visibilité financière en temps réel.",
-    contribution: [
-      "State management réactif avec Zustand pour les devis multi-lignes",
-      "Persistance relationnelle stricte PostgreSQL / Prisma",
-      "Tableau de bord financier avec graphiques Recharts",
-    ],
-    stack: ["Next.js", "PostgreSQL", "Zustand", "Prisma", "Recharts", "Vercel"],
-    images: [
-      "/projects/hmrenov26/1.png",
-      "/projects/hmrenov26/2.png",
-      "/projects/hmrenov26/3.png",
-      "/projects/hmrenov26/4.png",
-      "/projects/hmrenov26/5.png",
-      "/projects/hmrenov26/6.png",
-    ],
-    liveUrl: "https://crm-hmrenov26.vercel.app/",
-    status: "En exploitation",
-    isWip: false,
-  },
-  {
-    id: "ayflixtv",
-    title: "AyflixTv",
-    categoryBadge: "Streaming & E-Commerce",
-    tags: [
-      { label: "Plateforme E-Commerce" },
-      { label: "Espace Client Sécurisé" },
-      { label: "En production" },
-    ],
-    headline:
-      "Plateforme de souscription et catalogue d'abonnements streaming haute disponibilité avec checkout automatisé.",
-    description:
-      "Conception d'une plateforme complète de vente de forfaits : catalogue dynamique, tunnel de paiement sécurisé et espace client pour la gestion instantanée des accès.",
-    contribution: [
-      "Catalogue dynamique et gestion d'abonnements",
-      "Tunnel de commande automatisé et intégration de paiement",
-      "Espace abonné sécurisé avec gestion des droits",
-    ],
-    stack: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Tailwind CSS"],
-    images: ["/projects/ayflixtv/hero.png", "/projects/ayflixtv/pricing.png", "/projects/ayflixtv/dash.png"],
-    liveUrl: "https://ayflixtv.vercel.app",
-    status: "En production",
-    isWip: false,
-  },
-  {
-    id: "massurer",
-    title: "Massurer",
-    categoryBadge: "Courtage & Acquisition",
-    tags: [
-      { label: "Simulateur Interactif" },
-      { label: "Validation Zod" },
-      { label: "En ligne" },
-    ],
-    headline:
-      "Portail d'assurance et simulateur de devis multi-branches avec capture de leads qualifiés en temps réel.",
-    description:
-      "Conception d'un tunnel d'acquisition interactif pour un cabinet de courtage indépendant avec formulaires à étapes garantissant un taux de complétion élevé.",
-    contribution: [
-      "Tunnel de simulation multi-étapes avec validation Zod",
-      "Capture et routage instantané des demandes de cotation",
-      "Design épuré et adapté au mobile",
-    ],
-    stack: ["Next.js", "TypeScript", "Zod", "Tailwind CSS"],
-    images: ["/projects/massurer.png"],
-    liveUrl: "https://massurer.vercel.app/",
-    status: "En ligne",
-    isWip: false,
-  },
-]
+const showcaseList = PROJECTS.filter((p) => p.featured)
 
 /** Croix d'intersection blueprint — même motif que le footer et la section contact */
 function Plus({ className = "" }: { className?: string }) {
@@ -160,7 +41,7 @@ export function ProjectsSection() {
 
   return (
     <section id="projects" className="py-24  bg-gradient-to-b from-[#0a0c10] to-[#090b0f] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-2 sm:px-5">
 
         {/* ── Wrapper blueprint : bordures latérales identiques au footer ── */}
         <div className="relative border-x border-white/10">
@@ -343,13 +224,13 @@ export function ProjectsSection() {
 
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag, tIdx) => (
+                      {project.highlights.map((tag) => (
                         <span
-                          key={tIdx}
+                          key={tag}
                           className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-montserrat font-medium text-zinc-400 border border-white/10"
                         >
                           <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                          <span>{tag.label}</span>
+                          <span>{tag}</span>
                         </span>
                       ))}
                     </div>
@@ -459,7 +340,7 @@ export function ProjectsSection() {
                     }`}
                   />
                   <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">
-                    {p.categoryBadge}
+                    {p.subtitle}
                   </span>
                 </div>
                 <span

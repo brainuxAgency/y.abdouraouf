@@ -45,7 +45,7 @@ export function CtaSection({
 
 
       {/* Contenu central */}
-      <div className="relative z-10 max-w-7xl mx-auto px-2 md:px-5 py-16 sm:py-24 flex flex-col items-center text-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-5 py-16 sm:py-24 flex flex-col items-center text-center">
         <div className="max-w-3xl w-full">
 
           {/* Règle horizontale fine éditoriale au-dessus du titre */}
@@ -58,11 +58,11 @@ export function CtaSection({
           </div>
 
           {/* Titre monumental — mix Sans Bold + Serif Italic (cohérent avec le Hero) */}
-          <h2 className="text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-[3.85rem] tracking-tight leading-[1.1]">
-            <span className="block font-sans font-extrabold text-white sm:whitespace-nowrap">
+          <h2 className="text-[clamp(1.25rem,6vw,2.25rem)] sm:text-5xl lg:text-[3.5rem] xl:text-[3.85rem] tracking-tight leading-[1.1] whitespace-nowrap">
+            <span className="block font-sans font-extrabold text-white">
               {titleLine1}
             </span>
-            <span className="block font-serif italic font-normal text-zinc-300 mt-1 sm:mt-2 sm:whitespace-nowrap">
+            <span className="block font-serif italic font-normal text-zinc-300 mt-1 sm:mt-2">
               {titleLine2italic}
             </span>
           </h2>
@@ -80,17 +80,17 @@ export function CtaSection({
           </div>
 
           {/* Règle + bouton disposés en ligne éditoriale */}
-          <div className="mt-10 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-8">
+          <div className="mt-10 sm:mt-12 flex flex-row items-center justify-center gap-3 sm:gap-8">
             {/* Bouton principal : Cal.com modal ou lien personnalisé */}
             {useCalModal ? (
-              <CalButton className="btn-cta-gold group inline-flex items-center gap-2.5 px-6 py-2 rounded-full text-sm font-semibold cursor-pointer">
+              <CalButton className="btn-cta-gold group inline-flex items-center gap-2 whitespace-nowrap px-4 py-3 sm:gap-2.5 sm:px-6 sm:py-2 rounded-full text-sm font-semibold cursor-pointer">
                 <span>{buttonText}</span>
                 <ArrowUpRight className="w-4 h-4 text-[#23190A] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
               </CalButton>
             ) : (
               <Link
                 href={buttonHref || "/#contact"}
-                className="btn-cta-gold group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-sm font-semibold cursor-pointer"
+                className="btn-cta-gold group inline-flex items-center gap-2 whitespace-nowrap px-4 py-3 sm:gap-2.5 sm:px-7 sm:py-3.5 rounded-full text-sm font-semibold cursor-pointer"
               >
                 <span>{buttonText}</span>
                 <ArrowUpRight className="w-4 h-4 text-[#23190A] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
@@ -103,7 +103,7 @@ export function CtaSection({
             {/* Lien secondaire texto — email direct */}
             <a
               href="mailto:youssouf.abdouraouf4@gmail.com"
-              className="group text-sm text-zinc-500 hover:text-white transition-colors duration-200 flex items-center gap-1.5"
+              className="group whitespace-nowrap text-xs sm:text-sm text-zinc-500 hover:text-white transition-colors duration-200 flex items-center gap-1"
             >
               <span>ou écrire directement</span>
               <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" />

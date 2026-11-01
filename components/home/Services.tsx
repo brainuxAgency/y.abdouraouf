@@ -223,7 +223,7 @@ export function Services() {
             <div aria-hidden="true" className={glowClass} />
             <div className={mockupClass}>
               <WindowBar url="projet — modernisation" />
-              <ol className="grid gap-3 p-5 sm:grid-cols-4">
+              <ol className="grid grid-cols-2 gap-3 p-5 sm:grid-cols-4">
                 {[
                   ["Audit", "Terminé", "done"],
                   ["Correctifs", "Terminé", "done"],

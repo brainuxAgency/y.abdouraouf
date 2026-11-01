@@ -37,7 +37,7 @@ export default function Footer() {
                 href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group flex items-center justify-between px-6 sm:px-8 py-5 sm:py-6 transition-all duration-300 hover:bg-white/[0.04] ${
+                className={`group flex items-center justify-between px-3 sm:px-5 py-5 sm:py-6 transition-all duration-300 hover:bg-white/[0.04] ${
                   !isLast ? "border-b sm:border-b-0 sm:border-r border-white/10" : ""
                 }`}
               >
@@ -56,7 +56,7 @@ export default function Footer() {
         {/* Ligne 2 : Navigation en 4 colonnes */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {/* Colonne 1 : Navigation */}
-          <div className="p-6 sm:p-8 lg:p-10 border-b lg:border-b-0 sm:border-r border-white/10">
+          <div className="p-3 sm:p-5 lg:p-10 border-b lg:border-b-0 sm:border-r border-white/10">
             <h4 className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-6 font-semibold">
               Navigation
             </h4>
@@ -80,7 +80,7 @@ export default function Footer() {
           </div>
 
           {/* Colonne 2 : Services */}
-          <div className="p-6 sm:p-8 lg:p-10 border-b lg:border-b-0 sm:border-r border-white/10">
+          <div className="p-2 sm:p-5 lg:p-10 border-b lg:border-b-0 sm:border-r border-white/10">
             <h4 className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-6 font-semibold">
               Services
             </h4>
@@ -109,7 +109,7 @@ export default function Footer() {
           </div>
 
           {/* Colonne 3 : Légal */}
-          <div className="p-6 sm:p-8 lg:p-10 border-b sm:border-b-0 sm:border-r border-white/10">
+          <div className="p-2 sm:p-5 lg:p-10 border-b sm:border-b-0 sm:border-r border-white/10">
             <h4 className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-6 font-semibold">
               Légal
             </h4>
@@ -147,7 +147,7 @@ export default function Footer() {
                 </a>
               </li>
               <li className="text-zinc-400">
-                <span className="text-zinc-500">Basé en :</span> France &amp; à distance
+                <span className="text-zinc-500">Basé au :</span> Maroc &amp; à distance
               </li>
             </ul>
           </div>

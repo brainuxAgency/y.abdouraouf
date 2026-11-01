@@ -47,7 +47,7 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:48px_48px]"
       />
 
-      <div className="mx-auto max-w-7xl px-2 md:px-5">
+      <div className="mx-auto max-w-7xl px-4 md:px-5">
 
         {/* Main composition */}
         <div className="grid gap-10 py-8 sm:py-10 lg:grid-cols-[1fr_260px] lg:gap-12 lg:py-12">
@@ -58,7 +58,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.05 }}
-              className="mb-4 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 sm:text-xs"
+              className="mb-4 hidden items-center gap-3 font-mono sm:flex text-[10px] uppercase tracking-[0.22em] text-zinc-500 sm:text-xs"
             >
               <span className="h-px w-8 bg-primary" />
               Ingénierie logicielle · Produits digitaux
@@ -68,7 +68,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.1 }}
-              className="max-w-3xl text-[clamp(2rem,4vw,3.6rem)] font-semibold leading-[1.04] tracking-[-0.04em]"
+              className="max-w-3xl whitespace-nowrap text-center text-[clamp(1.5rem,9vw,2.5rem)] font-semibold leading-[1.04] tracking-[-0.04em] md:whitespace-normal md:text-left md:text-[clamp(2rem,4vw,3.6rem)]"
             >
               Je conçois des
               <br />
@@ -105,11 +105,11 @@ export function Hero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.24 }}
-              className="mt-6 flex flex-wrap items-center gap-4"
+              className="mt-6 flex flex-row items-center gap-3 sm:gap-4"
             >
               <Link
                 href="#contact"
-                className="btn-cta-gold group inline-flex items-center gap-2.5 rounded-full px-5 py-3 text-sm font-semibold cursor-pointer"
+                className="btn-cta-gold group inline-flex items-center gap-2 whitespace-nowrap rounded-full px-4 py-3 text-xs sm:gap-2.5 sm:px-5 sm:text-sm font-semibold cursor-pointer"
               >
                 Parlons de votre projet
                 <ArrowUpRight className="h-4 w-4 text-[#23190A] transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -117,7 +117,7 @@ export function Hero() {
 
               <Link
                 href="/work"
-                className="group inline-flex items-center gap-2 py-3 text-sm text-zinc-300 transition hover:text-white"
+                className="group inline-flex items-center gap-1.5 whitespace-nowrap py-3 text-xs sm:gap-2 sm:text-sm text-zinc-300 transition hover:text-white"
               >
                 Voir mes réalisations
                 <MoveUpRight className="h-4 w-4 text-zinc-500 transition group-hover:text-primary" />
