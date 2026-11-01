@@ -244,7 +244,7 @@ export function WorkGallery() {
       {/* Grille de projets (Grid 3 colonnes) */}
       <motion.div 
         layout
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-5 max-w-7xl mx-auto"
       >
         <AnimatePresence mode="popLayout">
           {filteredProjects.map((project, index) => (
@@ -255,7 +255,7 @@ export function WorkGallery() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.3, delay: Math.min(index * 0.05, 0.25) }}
-              className="group relative flex flex-col bg-[#141416] border border-white/10 rounded-2xl sm:rounded-3xl p-2 md:p-5 shadow-sm hover:shadow-[0_0_30px_hsl(var(--primary)/0.12)] hover:border-white/25 transition-all duration-300"
+              className="group relative flex flex-col bg-[#141416] border border-white/10 rounded-2xl sm:rounded-3xl p-2 md:p-4 shadow-sm hover:shadow-[0_0_30px_hsl(var(--primary)/0.12)] hover:border-white/25 transition-all duration-300"
             >
               {/* Conteneur Image format 16:10 */}
               <div 
@@ -322,7 +322,7 @@ export function WorkGallery() {
                   ) : (
                     <button
                       onClick={() => setActiveModalProject(project)}
-                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-semibold bg-white/10 text-white hover:bg-white hover:text-[#050608] transition-all duration-200 cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-1.5 md:px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-semibold bg-white/10 text-white hover:bg-white hover:text-[#050608] transition-all duration-200 cursor-pointer"
                     >
                       <span>Détails</span>
                     </button>
