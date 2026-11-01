@@ -6,7 +6,6 @@ import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronUp, ChevronDown, ChevronRight, ExternalLink, Check } from "lucide-react"
 import { CalButton } from "../common/CalButton"
-import { Button } from "../ui/button"
 
 interface ShowcaseProject {
   id: string
@@ -22,7 +21,6 @@ interface ShowcaseProject {
   status: string
   isWip?: boolean
   attributionNote?: string
-  logo?: string
 }
 
 const showcaseList: ShowcaseProject[] = [
@@ -49,7 +47,6 @@ const showcaseList: ShowcaseProject[] = [
     liveUrl: "https://ripostera.vercel.app/",
     status: "En cours de développement",
     isWip: true,
-    logo: "/projects/ripostera-logo.png",
   },
   {
     id: "crm-hmrenov26",
@@ -356,13 +353,13 @@ export function ProjectsSection() {
 
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag, tIdx) => (
+                      {project.highlights.map((tag) => (
                         <span
-                          key={tIdx}
+                          key={tag}
                           className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-montserrat font-medium text-zinc-400 border border-white/10"
                         >
                           <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                          <span>{tag.label}</span>
+                          <span>{tag}</span>
                         </span>
                       ))}
                     </div>
@@ -472,7 +469,7 @@ export function ProjectsSection() {
                     }`}
                   />
                   <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">
-                    {p.categoryBadge}
+                    {p.subtitle}
                   </span>
                 </div>
                 <span

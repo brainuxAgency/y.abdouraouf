@@ -189,7 +189,7 @@ export function Navbar() {
               className="p-2 text-white hover:bg-white/10 rounded-full transition-colors"
               aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
             >
-              {isOpen ? <X size={20} /> : <Menu size={20} />}
+              {isOpen ? <X size={26} /> : <Menu size={26} />}
             </button>
           </div>
         </div>
@@ -208,7 +208,7 @@ export function Navbar() {
             <nav aria-label="Navigation mobile" className="max-w-7xl mx-auto px-2 md:px-5 py-5 space-y-1">
               {navItems.map((item) => {
                 const active = item.kind === "page" ? isPageActive(item.href) : isAnchorActive(item.href)
-                const base = `flex w-full items-center gap-2 py-2.5 text-base font-montserrat uppercase tracking-wider font-medium transition-colors ${
+                const base = `flex w-full items-center gap-2 py-2.5 text-sm font-montserrat uppercase tracking-wider font-medium transition-colors ${
                   active ? "text-primary-light" : "text-white hover:text-primary-light"
                 }`
 
