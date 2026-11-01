@@ -147,7 +147,7 @@ export default function Footer() {
                 </a>
               </li>
               <li className="text-zinc-400">
-                <span className="text-zinc-500">Basé en :</span> Maroc &amp; à distance
+                <span className="text-zinc-500">Basé au :</span> Maroc &amp; à distance
               </li>
             </ul>
           </div>
